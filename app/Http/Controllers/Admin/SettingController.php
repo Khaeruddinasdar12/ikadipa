@@ -176,7 +176,7 @@ class SettingController extends Controller
 		return Datatables::of($data)
 		->addColumn('action', function ($data) {
 			return "
-			<a class='btn btn-success btn-xs'
+			<a href='' class='btn btn-success btn-xs'
 			data-toggle='modal' 
 			data-target='#modal-edit-kategori'
 			title='edit kategori'
@@ -207,7 +207,7 @@ class SettingController extends Controller
     	return Datatables::of($data)
     	->addColumn('action', function ($data) {
     		return "
-    		<a class='btn btn-success btn-xs'
+    		<a href='' class='btn btn-success btn-xs'
     		data-toggle='modal' 
     		data-target='#modal-edit-jurusan'
     		title='edit jurusan'

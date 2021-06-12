@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBeritasTable extends Migration
+class CreateEventsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,21 @@ class CreateBeritasTable extends Migration
      */
     public function up()
     {
-        Schema::create('beritas', function (Blueprint $table) {
+        Schema::create('events', function (Blueprint $table) {
             $table->id();
-            $table->string('judul', 200);
-            // $table->string('slug')->unique();
+            $table->string('nama', 100);
             $table->string('gambar')->nullable();
-            $table->text('isi');
+            $table->text('deskripsi');
             $table->bigInteger('admin_id')->unsigned();
-            $table->string('kategori');
+            $table->date('date_start');
+            $table->date('date_end');
+            $table->string('time_start', 20);
+            $table->string('time_end', 20);
+            $table->string('lokasi', 100);
             $table->timestamps();
 
             $table->foreign('admin_id')->references('id')->on('admins');
-            // $table->foreign('kategori_id')->references('id')->on('kategori_beritas');
+
         });
     }
 
@@ -35,6 +38,6 @@ class CreateBeritasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('beritas');
+        Schema::dropIfExists('events');
     }
 }

@@ -8,12 +8,12 @@
 	<div class="container-fluid">
 		<div class="row mb-2">
 			<div class="col-sm-6">
-				<h1 class="m-0 text-dark"><i class="fa fa-newspaper"></i> Tambah Kategori</h1>
+				<h1 class="m-0 text-dark">Manage Kategori</h1>
 			</div><!-- /.col -->
 			<div class="col-sm-6">
 				<ol class="breadcrumb float-sm-right">
-					<li class="breadcrumb-item"><a href="#">Tambah Kategori</a></li>
-					<!-- <li class="breadcrumb-item active">Dashboard v1</li> -->
+					<li class="breadcrumb-item">Berita</li>
+					<li class="breadcrumb-item active">Tambah Kategori</li>
 				</ol>
 			</div><!-- /.col -->
 		</div><!-- /.row -->
@@ -44,8 +44,7 @@
 							</div>
 						</div>
 						<div class="card-footer">
-							<button type="reset" class="btn btn-default">Reset</button>
-							<button type="submit" class="btn btn-primary float-right">Submit</button>
+							<button type="submit" class="btn btn-primary float-right"><i class="fa fa-save"></i> Submit</button>
 						</form>
 					</div>
 					

@@ -23,7 +23,8 @@
   <!-- overlayScrollbars -->
   <link rel="stylesheet" href="{{ asset('admins/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
   <!-- summernote -->
-  <link rel="stylesheet" href="{{ asset('admins/plugins/summernote/summernote-bs4.css') }}">
+  @yield('css')
+  
   <!-- Google Font: Source Sans Pro -->
   <link href="{{ asset('css/sweetalert2.min.css') }}" rel="stylesheet">
   <!-- <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet"> -->
@@ -94,7 +95,7 @@
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item">
-            <a href="{{route('admin.dashboard')}}" class="nav-link {{ request()->is('admin') ? 'active' : '' }}">
+            <a href="{{route('admin.dashboard')}}" class="nav-link {{ request()->is('admin') || request()->is('admin/dashboard') ? 'active' : '' }}">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
@@ -135,34 +136,79 @@
             </a>
           </li>
 
-          <li class="nav-item">
-            <a href="" class="nav-link {{ request()->is('admin/laporan-panen') ? 'active' : '' }}">
-              <i class="nav-icon fas fa-chart-pie"></i>
+          <li class="nav-item {{ request()->is('admin/donasi') || request()->is('admin/donasi/*')  ? 'has-treeview menu-open' : '' }}">
+            <a href="#" class="nav-link {{ request()->is('admin/donasi') || request()->is('admin/donasi/*') ? 'active' : '' }}">
+              <i class="fa fa-hand-holding-usd"></i>
               <p>
-                Laporan Panen
-              </p>
-            </a>
-          </li>
-
-          <li class="nav-item {{ request()->is('admin/berita/*')  ? 'has-treeview menu-open' : '' }}">
-            <a href="#" class="nav-link {{ request()->is('admin/berita/*') ? 'active' : '' }}">
-              <i class="nav-icon fas fa-newspaper"></i>
-              <p>
-                Berita
+                Donasi
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{route('berita.kategori')}}" class="nav-link  {{ request()->is('admin/berita/tambah-kategori') ? 'active' : '' }}">
+                <a href="{{route('donasi.create')}}" class="nav-link {{ request()->is('admin/donasi/create') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Tambah Kategori</p>
+                  <p>Tambah Donasi</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="" class="nav-link  {{ request()->is('admin/berita/daftar-berita') ? 'active' : '' }}">
+                <a href="{{route('donasi.index')}}" class="nav-link {{ request()->is('admin/donasi') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Daftar Berita</p>
+                  <p>List Donasi</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="nav-item {{ request()->is('admin/event') || request()->is('admin/event/*')  ? 'has-treeview menu-open' : '' }}">
+            <a href="#" class="nav-link {{ request()->is('admin/event') || request()->is('admin/event/*') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-calendar-week"></i>
+              <p>
+                Event
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('event.create')}}" class="nav-link  {{ request()->is('admin/event/create') ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Tambah Event</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('event.index')}}" class="nav-link  {{ request()->is('admin/event') ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>List Event</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="nav-item {{ request()->is('admin/berita') || request()->is('admin/berita/*')  ? 'has-treeview menu-open' : '' }}">
+            <a href="#" class="nav-link {{ request()->is('admin/berita') || request()->is('admin/berita/*') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-newspaper"></i>
+              <p>
+                Berita (news)
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('berita.kategori')}}" class="nav-link {{ request()->is('admin/berita/manage-kategori') ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Manage Kategori</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('berita.create')}}" class="nav-link {{ request()->is('admin/berita/create') ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Tambah Berita</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('berita.index')}}" class="nav-link {{ request()->is('admin/berita') ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>List Berita</p>
                 </a>
               </li>
             </ul>
@@ -248,7 +294,7 @@
 
 <!-- jQuery -->
 <script src="{{ asset('admins/plugins/jquery/jquery.min.js') }}"></script>
-@yield('js')
+
 
 <!-- Bootstrap 4 -->
 <script src="{{ asset('admins/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
@@ -259,10 +305,11 @@
 <script type="text/javascript" src="{{asset('datatables.min.js')}}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('admins/dist/js/adminlte.js') }}"></script>
+@yield('js')
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="{{ asset('admins/dist/js/pages/dashboard.js') }}"></script>
+<!-- <script src="{{ asset('admins/dist/js/pages/dashboard.js') }}"></script> -->
 <!-- AdminLTE for demo purposes -->
-<!-- <script src="{{ asset('admin/dist/js/demo.js') }}"></script> -->
+<!-- <script src="{{ asset('admins/dist/js/demo.js') }}"></script> -->
 <script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
 
 <script>
