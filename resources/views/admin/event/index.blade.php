@@ -4,6 +4,11 @@
 List Event
 @endsection
 
+@section('css')
+<link href="{{ asset('css/sweetalert2.min.css') }}" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{{asset('datatables.min.css')}}"/>
+@endsection
+
 @section('content')
 <!-- Content Header (Page header) -->
 <div class="content-header">
@@ -83,6 +88,8 @@ List Event
 @endsection
 
 @section('js')
+<script type="text/javascript" src="{{asset('datatables.min.js')}}"></script>
+<script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
 <script type="text/javascript">
 	$('#modal-detail-event').on('show.bs.modal', function (event) {
 		var button = $(event.relatedTarget) 
@@ -174,6 +181,16 @@ List Event
 			type: status,
 			title: pesan,
 			showConfirmButton: true,
+			button: "Ok"
+		})
+	}
+
+	function gagal(key, pesan) {
+		Swal.fire({
+			type: 'error',
+			title:  key + ' : ' + pesan,
+			showConfirmButton: true,
+			timer: 25500,
 			button: "Ok"
 		})
 	}

@@ -4,6 +4,11 @@
 List Donasi
 @endsection
 
+@section('css')
+<link href="{{ asset('css/sweetalert2.min.css') }}" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{{asset('datatables.min.css')}}"/>
+@endsection
+
 @section('content')
 <!-- Content Header (Page header) -->
 <div class="content-header">
@@ -67,6 +72,8 @@ List Donasi
 @endsection
 
 @section('js')
+<script type="text/javascript" src="{{asset('datatables.min.js')}}"></script>
+<script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
 <script type="text/javascript">
 
 	$('#modal-detail-donasi').on('show.bs.modal', function (event) {
@@ -156,5 +163,15 @@ List Donasi
 				button: "Ok"
 			})
 		}
+
+		function gagal(key, pesan) {
+		Swal.fire({
+			type: 'error',
+			title:  key + ' : ' + pesan,
+			showConfirmButton: true,
+			timer: 25500,
+			button: "Ok"
+		})
+	}
 	</script>
 	@endsection

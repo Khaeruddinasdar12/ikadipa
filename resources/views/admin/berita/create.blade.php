@@ -3,8 +3,7 @@
 @section('title') Tambah Berita @endsection
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('admins/plugins/summernote/summernote-bs4.css') }}">
-<!-- <link rel="stylesheet" href="{{ asset('admins/plugins/daterangepicker/daterangepicker.css')}}"> -->
+<link rel="stylesheet" href="{{ asset('admins/plugins/summernote/summernote-bs4.css') }}">daterangepicker.css')}}"> -->
 <style type="text/css">
 .alert-warning{
 	color: #856404;

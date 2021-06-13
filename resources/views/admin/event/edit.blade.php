@@ -4,7 +4,6 @@
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('admins/plugins/summernote/summernote-bs4.css') }}">
-<!-- <link rel="stylesheet" href="{{ asset('admins/plugins/daterangepicker/daterangepicker.css')}}"> -->
 <style type="text/css">
 .alert-warning{
 	color: #856404;
@@ -169,9 +168,6 @@
 
 @section('js')
 <script src="{{asset('admins/plugins/summernote/summernote-bs4.min.js')}}"></script>
-<!-- <script src="{{asset('admins/plugins/moment/moment.min.js')}}"></script> -->
-<!-- <script src="{{asset('admins/plugins/daterangepicker/daterangepicker.js')}}"></script> -->
-
 <script>
 	function cekTanggalMulai() {
 		var start = document.getElementById("date_start").value;

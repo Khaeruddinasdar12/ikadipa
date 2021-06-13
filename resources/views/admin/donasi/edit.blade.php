@@ -55,7 +55,7 @@
 			<div class="col-12">
 				@if(session('success'))
 				<div class="alert alert-success alert-dismissible fade show" role="alert">
-					<strong>Berhasil Mengubah Donasi !</strong> <a href="{{route('donasi.edit', session('success'))}}" class="alert-anchor">Sunting</a>
+					<strong>Berhasil Mengubah Donasi !</strong>
 					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>

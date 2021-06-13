@@ -19,6 +19,14 @@ Route::prefix('admin')->group(function() {
 	Route::get('/dashboard', 'Admin\DashboardController@index')->name('admin.dashboard');
 	// END DASHBOARD
 	
+	// WIRAUSAHA
+	Route::prefix('wirausaha')->group(function() {
+		Route::get('/', 'Admin\WirausahaController@index')->name('wirausaha.index');
+		
+		Route::get('/table-wirausaha', 'Admin\WirausahaController@tableWirausaha')->name('table.wirausaha');
+	});
+	// END WIRAUSAHA
+
 	// DONASI
 	Route::prefix('donasi')->group(function() {
 		Route::get('/', 'Admin\DonasiController@index')->name('donasi.index');

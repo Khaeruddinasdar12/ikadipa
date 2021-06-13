@@ -2,6 +2,11 @@
 
 @section('title') Tambah Kategori Berita @endsection
 
+@section('css')
+<link href="{{ asset('css/sweetalert2.min.css') }}" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{{asset('datatables.min.css')}}"/>
+@endsection
+
 @section('content')
 <!-- Content Header (Page header) -->
 <div class="content-header">
@@ -114,6 +119,9 @@
 @endsection
 
 @section('js')
+<script type="text/javascript" src="{{asset('datatables.min.js')}}"></script>
+<script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
+
 <script type="text/javascript">
 	$('#modal-edit-kategori').on('show.bs.modal', function (event) {
 		var button = $(event.relatedTarget) 

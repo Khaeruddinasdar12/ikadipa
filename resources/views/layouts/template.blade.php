@@ -13,7 +13,7 @@
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Tempusdominus Bbootstrap 4 -->
-  <!-- <link rel="stylesheet" href="{{ asset('admin/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}"> -->
+
   <!-- iCheck -->
   <link rel="stylesheet" href="{{ asset('admins/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
   <!-- JQVMap -->
@@ -24,10 +24,6 @@
   <link rel="stylesheet" href="{{ asset('admins/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
   <!-- summernote -->
   @yield('css')
-  
-  <!-- Google Font: Source Sans Pro -->
-  <link href="{{ asset('css/sweetalert2.min.css') }}" rel="stylesheet">
-  <!-- <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet"> -->
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
   <div class="wrapper">
@@ -99,39 +95,6 @@
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
-              </p>
-            </a>
-          </li>
-
-          <li class="nav-item {{ request()->is('admin/pesanan') || request()->is('admin/riwayat-pesanan') ? 'has-treeview menu-open' : '' }}">
-            <a href="#" class="nav-link {{ request()->is('admin/pesanan') || request()->is('admin/riwayat-pesanan') ? 'active' : '' }}">
-              <i class="nav-icon fas fa-cash-register"></i>
-              <p>
-                Data Pesanan
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="" class="nav-link  {{ request()->is('admin/pesanan') ? 'active' : '' }}">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Pesanan</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="" class="nav-link  {{ request()->is('admin/riwayat-pesanan') ? 'active' : '' }}">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Riwayat Pesanan</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-
-          <li class="nav-item">
-            <a href="" class="nav-link {{ request()->is('admin/laporan-harian') || request()->is('admin/laporan-harian/*') ? 'active' : '' }}">
-              <i class="nav-icon fas fa-calendar"></i>
-              <p>
-                Laporan Harian
               </p>
             </a>
           </li>
@@ -214,49 +177,35 @@
             </ul>
           </li>
 
-          <li class="nav-item {{ request()->is('admin/manage-obat') || request()->is('admin/manage-pakan') ? 'has-treeview menu-open' : '' }}">
-            <a href="#" class="nav-link {{ request()->is('admin/manage-obat') || request()->is('admin/manage-pakan') ? 'active' : '' }}">
-              <i class="nav-icon fas fa-tags"></i>
+          <li class="nav-item">
+            <a href="" class="nav-link">
+              <i class="nav-icon fas fa-briefcase"></i>
               <p>
-                Product
-                <i class="right fas fa-angle-left"></i>
+                Wirausaha
               </p>
             </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="" class="nav-link  {{ request()->is('admin/manage-obat') ? 'active' : '' }}">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Obat</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="" class="nav-link  {{ request()->is('admin/manage-pakan') ? 'active' : '' }}">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Pakan</p>
-                </a>
-              </li>
-            </ul>
           </li>
 
           <li class="nav-header">Manage Users</li>
           <li class="nav-item">
             <a href="" class="nav-link {{ request()->is('admin/manage-peternak') ? 'active' : '' }}">
-              <i class="nav-icon fas fa-user-tag"></i>
+              <i class="nav-icon fas fa-users"></i>
               <p>
-                Manage Peternak
+                Manage Alumni
               </p>
             </a>
           </li>
 
           <li class="nav-item">
             <a href="" class="nav-link {{ request()->is('admin/manage-pengecer') ? 'active' : '' }}">
-              <i class="nav-icon fas fa-users"></i>
+              <i class="nav-icon fas fa-user-cog"></i>
               <p>
-                Manage Pengecer
+                Manage Admin
               </p>
             </a>
           </li>
 
+          <li class="nav-header">Setting</li>
           <li class="nav-item">
             <a href="{{route('admin.setting')}}" class="nav-link {{ request()->is('admin/setting') ? 'active' : '' }}">
               <i class="nav-icon fas fa-cog"></i>
@@ -284,56 +233,17 @@
   All rights reserved.
 </footer>
 
-<!-- Control Sidebar -->
-<aside class="control-sidebar control-sidebar-dark">
-  <!-- Control sidebar content goes here -->
-</aside>
-<!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
 
 <!-- jQuery -->
 <script src="{{ asset('admins/plugins/jquery/jquery.min.js') }}"></script>
-
-
 <!-- Bootstrap 4 -->
 <script src="{{ asset('admins/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-
-
-<link rel="stylesheet" type="text/css" href="{{asset('datatables.min.css')}}"/>
-
-<script type="text/javascript" src="{{asset('datatables.min.js')}}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('admins/dist/js/adminlte.js') }}"></script>
+
 @yield('js')
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<!-- <script src="{{ asset('admins/dist/js/pages/dashboard.js') }}"></script> -->
-<!-- AdminLTE for demo purposes -->
-<!-- <script src="{{ asset('admins/dist/js/demo.js') }}"></script> -->
-<script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
 
-<script>
-  function gagal(key, pesan) {
-    Swal.fire({
-      type: 'error',
-      title:  key + ' : ' + pesan,
-      showConfirmButton: true,
-      timer: 25500,
-      button: "Ok"
-    })
-  }
-
-  $(function () {
-    $("#example1").DataTable();
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": true,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": true,
-    });
-  });
-</script> 
 </body>
 </html>

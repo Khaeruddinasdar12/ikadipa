@@ -2,6 +2,11 @@
 
 @section('title') Setting @endsection
 
+@section('css')
+<link href="{{ asset('css/sweetalert2.min.css') }}" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{{asset('datatables.min.css')}}"/>
+@endsection
+
 @section('content')
 <!-- Content Header (Page header) -->
 <div class="content-header">
@@ -209,6 +214,9 @@
 @endsection
 
 @section('js')
+<script type="text/javascript" src="{{asset('datatables.min.js')}}"></script>
+<script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
+
 <script type="text/javascript">
 	$('#modal-edit-jurusan').on('show.bs.modal', function (event) {
 		var button = $(event.relatedTarget) 
@@ -258,7 +266,7 @@
             		});
             	}
             } 
-        }); 
+          }); 
 	});
 
 	$('#edit-kategori').submit(function(e){ //edit kategori
@@ -272,21 +280,21 @@
 			contentType: false,
 			cache: false,
 			processData: false,
-            success:function(data){
-            	$('#edit-kategori')[0].reset();
-            	$('#tabel_kategori').DataTable().ajax.reload();
-            	$('#modal-edit-kategori').modal('hide');
-            	berhasil(data.status, data.pesan);
-            },
-            error: function(xhr, status, error){
-            	var error = xhr.responseJSON; 
-            	if ($.isEmptyObject(error) == false) {
-            		$.each(error.errors, function(key, value) {
-            			gagal(key, value);
-            		});
-            	}
-            } 
-        }); 
+			success:function(data){
+				$('#edit-kategori')[0].reset();
+				$('#tabel_kategori').DataTable().ajax.reload();
+				$('#modal-edit-kategori').modal('hide');
+				berhasil(data.status, data.pesan);
+			},
+			error: function(xhr, status, error){
+				var error = xhr.responseJSON; 
+				if ($.isEmptyObject(error) == false) {
+					$.each(error.errors, function(key, value) {
+						gagal(key, value);
+					});
+				}
+			} 
+		}); 
 	});
 
 	$('#add-kategori').submit(function(e){ // tambah kategori perusahaan
@@ -343,53 +351,53 @@
             		});
             	}
             } 
-        }); 
+          }); 
 	});
 
 	function hapus_data() { // menghapus jurusan
-   $(document).on('click', '#del_id', function(){
-    Swal.fire({
-      title: 'Anda Yakin ?',
-      text: "Anda tidak dapat mengembalikan data yang telah di hapus!",
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Ya, Lanjutkan Hapus!',
-      timer: 6500
-    }).then((result) => {
-      if (result.value) {
-        var me = $(this),
-        url = me.attr('href'),
-        token = $('meta[name="csrf-token"]').attr('content');
-        $.ajax({
-          url: url,
-          method: "POST",
-          data : {
-            '_method' : 'DELETE',
-            '_token'  : token
-          },
-          success:function(data){
-          	if(data.table == 'jurusan') {
-          		$('#tabel_jurusan').DataTable().ajax.reload();
-          	} else {
-          		$('#tabel_kategori').DataTable().ajax.reload();
-          	}
-            berhasil(data.status, data.pesan);
-          },
-          error: function(xhr, status, error){
-            var error = xhr.responseJSON; 
-            if ($.isEmptyObject(error) == false) {
-              $.each(error.errors, function(key, value) {
-                gagal(key, value);
-              });
-            }
-          } 
-        });
-      }
-    });
-  });
- }
+		$(document).on('click', '#del_id', function(){
+			Swal.fire({
+				title: 'Anda Yakin ?',
+				text: "Anda tidak dapat mengembalikan data yang telah di hapus!",
+				type: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'Ya, Lanjutkan Hapus!',
+				timer: 6500
+			}).then((result) => {
+				if (result.value) {
+					var me = $(this),
+					url = me.attr('href'),
+					token = $('meta[name="csrf-token"]').attr('content');
+					$.ajax({
+						url: url,
+						method: "POST",
+						data : {
+							'_method' : 'DELETE',
+							'_token'  : token
+						},
+						success:function(data){
+							if(data.table == 'jurusan') {
+								$('#tabel_jurusan').DataTable().ajax.reload();
+							} else {
+								$('#tabel_kategori').DataTable().ajax.reload();
+							}
+							berhasil(data.status, data.pesan);
+						},
+						error: function(xhr, status, error){
+							var error = xhr.responseJSON; 
+							if ($.isEmptyObject(error) == false) {
+								$.each(error.errors, function(key, value) {
+									gagal(key, value);
+								});
+							}
+						} 
+					});
+				}
+			});
+		});
+	}
 
 	kategori = $(document).ready(function(){
 		$('#tabel_kategori').DataTable({
@@ -402,13 +410,13 @@
 			"ajax":  {
                 "url":  '{{route("table.kategori")}}', // URL file untuk proses select datanya
                 "type": "GET"
-            },
-            "columns": [
-            { data: 'DT_RowIndex', name:'DT_RowIndex'},
-            { "data": "nama" },
-            { "data": "action" },
-            ]
-        });
+              },
+              "columns": [
+              { data: 'DT_RowIndex', name:'DT_RowIndex'},
+              { "data": "nama" },
+              { "data": "action" },
+              ]
+            });
 	});
 
 	jurusan = $(document).ready(function(){
@@ -422,14 +430,14 @@
 			"ajax":  {
                 "url":  '{{route("table.jurusan")}}', // URL file untuk proses select datanya
                 "type": "GET"
-            },
-            "columns": [
-            { data: 'DT_RowIndex', name:'DT_RowIndex'},
-            { "data": "kode" },
-            { "data": "nama" },
-            { "data": "action" },
-            ]
-        });
+              },
+              "columns": [
+              { data: 'DT_RowIndex', name:'DT_RowIndex'},
+              { "data": "kode" },
+              { "data": "nama" },
+              { "data": "action" },
+              ]
+            });
 	});
 
 	function berhasil(status, pesan) {
@@ -437,6 +445,16 @@
 			type: status,
 			title: pesan,
 			showConfirmButton: true,
+			button: "Ok"
+		})
+	}
+
+	function gagal(key, pesan) {
+		Swal.fire({
+			type: 'error',
+			title:  key + ' : ' + pesan,
+			showConfirmButton: true,
+			timer: 25500,
 			button: "Ok"
 		})
 	}
