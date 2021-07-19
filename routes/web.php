@@ -7,6 +7,9 @@ Auth::routes([
 	'register' => false,
 ]);
 
+Route::get('test', 'Admin\ManageAlumniController@test');
+
+
 Route::prefix('admin')->group(function() {
 	// AUTH
 	Route::get('/login', 'Auth\AdminAuthController@getLogin')->name('admin.login');
@@ -19,6 +22,25 @@ Route::prefix('admin')->group(function() {
 	Route::get('/dashboard', 'Admin\DashboardController@index')->name('admin.dashboard');
 	// END DASHBOARD
 	
+	// MANAGE ADMIN
+	Route::prefix('manage-alumni')->group(function() {
+		Route::get('alumni', 'Admin\ManageAlumniController@alumni')->name('alumni.alumni');
+		Route::get('mendaftar', 'Admin\ManageAlumniController@mendaftar')->name('alumni.mendaftar');
+		Route::get('ditolak', 'Admin\ManageAlumniController@ditolak')->name('alumni.ditolak');
+
+		Route::get('show/{id}', 'Admin\ManageAlumniController@show')->name('alumni.show');
+
+		Route::put('konfirmasi/{id}', 'Admin\ManageAlumniController@konfirmasi')->name('alumni.konfirmasi');
+		Route::put('tolak/{id}', 'Admin\ManageAlumniController@tolak')->name('alumni.tolak');
+		
+
+		//table api alumni
+		Route::get('/table-alumni', 'Admin\ManageAlumniController@tableAlumni')->name('table.alumni');
+		Route::get('/table-alumni-mendaftar', 'Admin\ManageAlumniController@tableMendaftar')->name('table.alumni.mendaftar');
+		Route::get('/table-alumni-ditolak', 'Admin\ManageAlumniController@tableDitolak')->name('table.alumni.ditolak');
+	});
+	// END MANAGE ALUMNI
+
 	// WIRAUSAHA
 	Route::prefix('wirausaha')->group(function() {
 		Route::get('/', 'Admin\WirausahaController@index')->name('wirausaha.index');

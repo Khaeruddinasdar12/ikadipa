@@ -17,3 +17,14 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+// SETTING
+Route::get('/jurusan', 'Api\SettingController@jurusan'); //jurusan
+Route::get('/provinsi', 'Api\SettingController@provinsi'); //provinsi
+Route::get('/kota', 'Api\SettingController@kota'); //kota
+
+// login user
+Route::post('/register', 'Api\UserController@register'); //register user
+
+Route::post('/login', 'Api\Admin\UserController@login'); //login user
+
