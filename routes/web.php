@@ -22,7 +22,7 @@ Route::prefix('admin')->group(function() {
 	Route::get('/dashboard', 'Admin\DashboardController@index')->name('admin.dashboard');
 	// END DASHBOARD
 	
-	// MANAGE ADMIN
+	// MANAGE ALUMNI
 	Route::prefix('manage-alumni')->group(function() {
 		Route::get('alumni', 'Admin\ManageAlumniController@alumni')->name('alumni.alumni');
 		Route::get('mendaftar', 'Admin\ManageAlumniController@mendaftar')->name('alumni.mendaftar');

@@ -28,7 +28,7 @@ class CreateUsersTable extends Migration
             $table->enum('is_active', ['0','1', 'tolak']); // 0 inactive, 1 is_active
 
             //field pekerjaan
-            $table->string('perusahaan', 35)->nullable(); //nama perusahaan
+            $table->string('perusahaan', 60)->nullable(); //nama perusahaan
             $table->bigInteger('kategori_id')->unsigned()->nullable();
             $table->string('alamat_perusahaan', 100)->nullable();
             $table->bigInteger('alamat_perusahaan_id')->unsigned()->nullable();
