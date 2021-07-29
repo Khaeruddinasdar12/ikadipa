@@ -24,8 +24,8 @@ class FeedController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'user_id'  => 'required|numeric',
-            'status'  => 'required|string',
-            'gambar'    => 'image|mimes:jpeg,png,jpg|max:3072',
+            'status'   => 'required|string',
+            'gambar'   => 'image|mimes:jpeg,png,jpg|max:3072',
         ]);
 
         if($validator->fails()) {
@@ -43,7 +43,7 @@ class FeedController extends Controller
         $data new Feed;
         $data->status = $request->status;
         $data->user_id   $request->user_id;
-        
+
         $gambar = $request->file('gambar');
         if ($gambar) {
             $gambar_path = $gambar->store('gambar', 'public');
