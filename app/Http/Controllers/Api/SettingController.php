@@ -7,12 +7,12 @@ use Illuminate\Http\Request;
 use App\Jurusan;
 use App\Provinsi;
 use App\Kota;
-use App\kategoriPerusahaan;
+use App\KategoriPerusahaan;
 class SettingController extends Controller
 {
     public function kategoriPerusahaan()
     {
-        $data = kategoriPerusahaan::select('id', 'nama')->get();
+        $data = KategoriPerusahaan::select('id', 'nama')->get();
 
         return $data;
     }
