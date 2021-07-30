@@ -30,4 +30,7 @@ Route::get('/donasi', 'Api\DonasiController@donasi'); //list donasi
 // API FEED
 Route::get('/feed', 'Api\FeedController@index'); // index
 
+// API WIRAUSAHA
+Route::post('/wirausaha', 'Api\WirausahaController@store'); // post wirausaha
+
 

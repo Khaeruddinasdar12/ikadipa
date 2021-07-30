@@ -26,8 +26,10 @@ Wirausaha
 							<thead>
 								<tr>
 									<th>No.</th>
-									<th>Judul Berita</th>
+									<th>Nama Wirausaha</th>
 									<th>Kategori</th>
+									<th>Alamat</th>
+									<th>Pemilik</th>
 									<th>Action</th>
 								</tr>
 							</thead>  
@@ -55,13 +57,15 @@ Wirausaha
 				"order": [[ 0, 'desc' ]],
 				"aLengthMenu": [[10, 25, 50],[ 10, 25, 50]],
 				"ajax": {
-                "url":  '{{route("table.berita")}}', // URL file untuk proses select datanya
+                "url":  '{{route("table.wirausaha")}}', // URL file untuk proses select datanya
                 "type": "GET"
               },
               "columns": [
               { data: 'DT_RowIndex', name:'DT_RowIndex'},
-              { "data": "judul" },
-              { "data": "kategori" },
+              { "data": "nama" },
+              { "data": "kategori.nama" },
+              { "data": "alamat" },
+              { "data": "user.name" },
               { "data": "action" },
               ]
             });

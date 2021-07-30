@@ -6,26 +6,18 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Validator;
-use App\Feed;
-class FeedController extends Controller
+use App\Wirausaha;
+
+class WirausahaController extends Controller
 {
-    public function index()
-    {
-        $data = Feed::orderBy('created_at', 'desc')->paginate(15);
-
-        return response()->json([
-            'status'  => false,
-            'message' => 'Feed limit 15 data',  
-            'data'    => $data
-        ]);
-    }
-
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'user_id'  => 'required|numeric',
-            'status'   => 'required|string',
-            'gambar'   => 'image|mimes:jpeg,png,jpg|max:3072',
+            'user_id'               => 'required|numeric',
+            'kategori_perusahaan_id'   => 'required|numeric',
+            'alamat_id'   => 'required|numeric',
+            'lokasi'   => 'required|string',
+            'nama'   => 'required|string',
         ]);
 
         if($validator->fails()) {
@@ -40,21 +32,19 @@ class FeedController extends Controller
             return $this->error;
         }
 
-        $data new Feed;
-        $data->status = $request->status;
-        $data->user_id   $request->user_id;
-
-        $gambar = $request->file('gambar');
-        if ($gambar) {
-            $gambar_path = $gambar->store('gambar', 'public');
-            $data->gambar = $gambar_path;
-        }
+        $data = new Wirausaha;
+        $data->nama = $request->nama;
+        $data->lokasi = $request->lokasi;
+        $data->user_id = $request->user_id;
+        $data->alamat_id = $request->alamat_id;
+        $data->kategori_id = $request->kategori_perusahaan_id;
         $data->save();
 
         return response()->json([
             'status'    => true,
-            'message'   => 'Berhasil memposting',
+            'message'   => 'Data wirausaha ditambahkan',
         ]);
+
     }
 
     private $user;
