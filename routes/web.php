@@ -9,6 +9,16 @@ Auth::routes([
 
 Route::get('test', 'Admin\ManageAlumniController@test');
 
+Route::get('test-email', function(){
+	return view('email', [
+		'name' => 'Khaeruddin Asdar, S.Kom',
+		'bidang' => 'Teknik Informatika',
+		'pesan' => 'Tetap Semangat kaka'
+	]);
+});
+
+
+
 
 Route::prefix('admin')->group(function() {
 	// AUTH
@@ -30,7 +40,7 @@ Route::prefix('admin')->group(function() {
 
 		Route::get('show/{id}', 'Admin\ManageAlumniController@show')->name('alumni.show');
 
-		Route::put('konfirmasi/{id}', 'Admin\ManageAlumniController@konfirmasi')->name('alumni.konfirmasi');
+		Route::get('konfirmasi/{id}', 'Admin\ManageAlumniController@konfirmasi')->name('alumni.konfirmasi');
 		Route::put('tolak/{id}', 'Admin\ManageAlumniController@tolak')->name('alumni.tolak');
 		
 
