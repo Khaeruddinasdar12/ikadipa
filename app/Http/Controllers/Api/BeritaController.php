@@ -10,7 +10,7 @@ class BeritaController extends Controller
 {
     public function berita(Request $request)
     {
-        $data = Berita::select('beritas.id', 'beritas.judul', 'beritas.created_at', DB::raw('group_concat(concat(kategori_beritas.nama)SEPARATOR ", ") as kategori'))
+        $data = Berita::select('beritas.id', 'beritas.judul', 'beritas.gambar', 'beritas.created_at', DB::raw('group_concat(concat(kategori_beritas.nama)SEPARATOR ", ") as kategori'))
         ->leftjoin("kategori_beritas",\DB::raw("FIND_IN_SET(kategori_beritas.id,beritas.kategori)"),">",\DB::raw("'0'"))
         ->groupBy('beritas.id')
         ->paginate(8);
