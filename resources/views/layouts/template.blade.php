@@ -214,6 +214,12 @@
                   <p>Ditolak</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="" class="nav-link {{ request()->is('admin/manage-alumni/data-alumni') ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Data Alumni</p>
+                </a>
+              </li>
             </ul>
           </li>
 

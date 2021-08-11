@@ -28,6 +28,11 @@ class ManageAlumniController extends Controller
         return view('admin.manage-alumni.alumni');
     }
 
+    public function dataAlumni() //halaman manage alumni (data alumni)
+    {
+        return view('admin.manage-alumni.data-alumni');
+    }
+
     public function mendaftar() //halaman manage alumni (alumni)
     {
         return view('admin.manage-alumni.mendaftar');

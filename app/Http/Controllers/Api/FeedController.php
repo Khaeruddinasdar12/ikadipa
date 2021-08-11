@@ -7,11 +7,16 @@ use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Validator;
 use App\Feed;
+use DB;
 class FeedController extends Controller
 {
     public function index()
     {
-        $data = Feed::orderBy('created_at', 'desc')->paginate(15);
+        $data = DB::table('feeds')
+                ->select('feeds.id', 'feeds.status', 'feeds.gambar', 'users.name', 'feeds.created_at')
+                ->join('users', 'feeds.user_id', '=', 'users.id')
+                ->orderBy('feeds.created_at', 'desc')
+                ->paginate(15);
 
         return response()->json([
             'status'  => false,
@@ -40,9 +45,9 @@ class FeedController extends Controller
             return $this->error;
         }
 
-        $data new Feed;
+        $data = new Feed;
         $data->status = $request->status;
-        $data->user_id   $request->user_id;
+        $data->user_id = $request->user_id;
 
         $gambar = $request->file('gambar');
         if ($gambar) {

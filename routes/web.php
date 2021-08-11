@@ -34,6 +34,7 @@ Route::prefix('admin')->group(function() {
 	
 	// MANAGE ALUMNI
 	Route::prefix('manage-alumni')->group(function() {
+		Route::get('data-alumni', 'Admin\ManageAlumniController@dataAlumni')->name('data.alumni');
 		Route::get('alumni', 'Admin\ManageAlumniController@alumni')->name('alumni.alumni');
 		Route::get('mendaftar', 'Admin\ManageAlumniController@mendaftar')->name('alumni.mendaftar');
 		Route::get('ditolak', 'Admin\ManageAlumniController@ditolak')->name('alumni.ditolak');
