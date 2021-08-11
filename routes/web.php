@@ -41,7 +41,7 @@ Route::prefix('admin')->group(function() {
 
 		Route::get('show/{id}', 'Admin\ManageAlumniController@show')->name('alumni.show');
 
-		Route::get('konfirmasi/{id}', 'Admin\ManageAlumniController@konfirmasi')->name('alumni.konfirmasi');
+		Route::post('konfirmasi/{id}', 'Admin\ManageAlumniController@konfirmasi')->name('alumni.konfirmasi');
 		Route::put('tolak/{id}', 'Admin\ManageAlumniController@tolak')->name('alumni.tolak');
 		
 
