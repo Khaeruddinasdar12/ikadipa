@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Event;
-
+use Validator;
 class EventController extends Controller
 {
     public function event(Request $request)
@@ -29,6 +29,35 @@ class EventController extends Controller
             'prev_page_url' => $data->previousPageUrl(),
             'to' => $data->count(),
             'total' => $data->total()
+        ]);
+    }
+
+    public function show(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'event_id' => 'required|numeric',
+        ]);
+
+        if($validator->fails()) {
+            $message = $validator->messages()->first();
+            return response()->json([
+                'status' => false,
+                'message' => $message
+            ]);
+        }
+
+        $data = Event::find($request->event_id);
+        if($data == '') {
+            return response()->json([
+                'status' => false,
+                'message' => 'id event tidak ditemukan'
+            ]);
+        }
+
+        return response()->json([
+            'status' => true,
+            'message'   => 'Detail Event',
+            'data'  => $data
         ]);
     }
 }

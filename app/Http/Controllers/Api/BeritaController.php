@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Berita;
 use DB;
+use Validator;
 class BeritaController extends Controller
 {
     public function berita(Request $request)
@@ -31,6 +32,41 @@ class BeritaController extends Controller
             'prev_page_url' => $data->previousPageUrl(),
             'to' => $data->count(),
             'total' => $data->total()
+        ]);
+    }
+
+    public function show(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'berita_id' => 'required|numeric',
+        ]);
+
+        if($validator->fails()) {
+            $message = $validator->messages()->first();
+            return response()->json([
+                'status' => false,
+                'message' => $message
+            ]);
+        }
+
+        $data = 
+        Berita::select('beritas.id', 'beritas.judul', 'beritas.gambar', 'beritas.created_at', 'beritas.isi', DB::raw('group_concat(concat(kategori_beritas.nama)SEPARATOR ", ") as kategori'))
+        ->leftjoin("kategori_beritas",\DB::raw("FIND_IN_SET(kategori_beritas.id,beritas.kategori)"),">",\DB::raw("'0'"))
+        ->groupBy('beritas.id')
+        ->where('beritas.id', $request->berita_id)
+        ->first();
+
+        if($data == '') {
+            return response()->json([
+                'status' => false,
+                'message' => 'id berita tidak ditemukan'
+            ]);
+        }
+
+        return response()->json([
+            'status' => true,
+            'message'   => 'Detail Berita',
+            'data'  => $data
         ]);
     }
 }

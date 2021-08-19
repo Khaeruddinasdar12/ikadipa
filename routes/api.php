@@ -20,12 +20,15 @@ Route::post('/login', 'Api\Admin\UserController@login'); //login user
 
 // API BERITA
 Route::get('/berita', 'Api\BeritaController@berita'); //list berita
+Route::post('/berita', 'Api\BeritaController@show'); //detail berita
 
 // API EVENT
 Route::get('/event', 'Api\EventController@event'); //list event
+Route::post('/event', 'Api\EventController@show'); //detail event
 
 // API DONASI
 Route::get('/donasi', 'Api\DonasiController@donasi'); //list donasi
+Route::post('/donasi', 'Api\DonasiController@show'); //detail donasi
 
 // API FEED
 Route::get('/feed', 'Api\FeedController@index'); // index

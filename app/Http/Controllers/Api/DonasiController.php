@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Donasi;
+use Validator;
 
 class DonasiController extends Controller
 {
@@ -29,6 +30,35 @@ class DonasiController extends Controller
             'prev_page_url' => $data->previousPageUrl(),
             'to' => $data->count(),
             'total' => $data->total()
+        ]);
+    }
+
+    public function show(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'donasi_id' => 'required|numeric',
+        ]);
+
+        if($validator->fails()) {
+            $message = $validator->messages()->first();
+            return response()->json([
+                'status' => false,
+                'message' => $message
+            ]);
+        }
+
+        $data = Donasi::find($request->donasi_id);
+        if($data == '') {
+            return response()->json([
+                'status' => false,
+                'message' => 'id donasi tidak ditemukan'
+            ]);
+        }
+
+        return response()->json([
+            'status' => true,
+            'message'   => 'Detail Donasi',
+            'data'  => $data
         ]);
     }
 }
