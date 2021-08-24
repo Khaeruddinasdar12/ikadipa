@@ -21,6 +21,8 @@ Route::post('/login', 'Api\Admin\UserController@login'); //login user
 // API BERITA
 Route::get('/berita', 'Api\BeritaController@berita'); //list berita
 Route::post('/berita', 'Api\BeritaController@show'); //detail berita
+Route::get('/kategori-berita', 'Api\BeritaController@kategori'); //list kategori berita
+Route::post('/kategori-berita', 'Api\BeritaController@kategoriBerita'); //list berita per kategori
 
 // API EVENT
 Route::get('/event', 'Api\EventController@event'); //list event

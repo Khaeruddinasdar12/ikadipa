@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Berita;
+use App\KategoriBerita;
 use DB;
 use Validator;
 class BeritaController extends Controller
@@ -66,6 +67,35 @@ class BeritaController extends Controller
         return response()->json([
             'status' => true,
             'message'   => 'Detail Berita',
+            'data'  => $data
+        ]);
+    }
+
+    public function kategori()
+    {
+        $data = KategoriBerita::select('id', 'nama')->get();
+        return response()->json([
+            'status' => true,
+            'message'   => 'List Kategori Berita',
+            'data'  => $data
+        ]);
+    }
+
+    public function kategoriBerita(Request $request)
+    {
+        $data = DB::table('beritas')
+        ->whereRaw('FIND_IN_SET("'.$request->kategori_id.'",kategori)')
+        ->get();
+        if($data == '') {
+            return response()->json([
+                'status' => false,
+                'message' => 'id kategori berita tidak ditemukan'
+            ]);
+        }
+
+        return response()->json([
+            'status' => true,
+            'message'   => 'List Berita per Kategori',
             'data'  => $data
         ]);
     }
