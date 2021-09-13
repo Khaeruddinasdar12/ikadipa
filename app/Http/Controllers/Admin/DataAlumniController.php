@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Alumni;
 use App\Jurusan;
+use App\User;
 class DataAlumniController extends Controller
 {
     public function __construct()
@@ -91,5 +92,30 @@ class DataAlumniController extends Controller
             'status' => 'success',
             'pesan' => 'Berhasil Menambah Alumni.'
         );
+    }
+
+    public function cek($id)
+    {
+        $user = User::find($id);
+        $cek = Alumni::with('jurusan:id,nama')
+            ->where('name', 'like', '%'.$user->name.'%')
+            ->where('angkatan', '=', $user->angkatan)
+            ->where('stb', '=', $user->stb)
+            ->where('jurusan_id', '=', $user->jurusan_id)
+            ->first();
+
+        if($cek != '') {
+            return $arrayName = array(
+                'status' => 'success',
+                'pesan' => 'Terdapat Kecocokan Data',
+                'data' => $cek
+            );
+        } else {
+            return $arrayName = array(
+                'status' => 'error',
+                'pesan' => 'Tidak Ada Kecocokan'
+            );
+        }
+        
     }
 }

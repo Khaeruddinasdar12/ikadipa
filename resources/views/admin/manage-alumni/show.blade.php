@@ -95,6 +95,9 @@
  								<button type="button" class="btn btn-danger	 btn-sm float-right" style="margin-right: 5px;" data-toggle="modal" data-target="#modal-tolak-alumni">
  									<i class="fas fa-times"></i> Bukan Alumni
  								</button>
+                <button type="button" class="btn btn-secondary btn-sm float-right" style="margin-right: 5px;" onclick="cek()"  id="cek" href="{{route('cek.alumni', ['id' => $data->id])}}">
+                  <i class="fas fa-clipboard-check"></i> Cek Alumni
+                </button>
                 @elseif($data->is_active == '1')
                 <span class="badge badge-success"><i class="fas fa-check"></i> Alumni</span>
                 @elseif($data->is_active == 'tolak')
@@ -203,6 +206,51 @@
 </div>
 <!-- End Modal Tolak Alumni -->
 
+<!-- Modal Validity -->
+<div class="modal fade bd-example-modal" id="modal-validity" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"> Data Alumni Serupa</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <p id="pesan"></p>
+        <table id="table">
+          <tr>
+            <td>STB </td>
+            <td> : </td>
+            <td id="stb"></td>
+          </tr>
+          <tr>
+            <td>Nama </td>
+            <td> : </td>
+            <td id="nama"></td>
+          </tr>
+          <tr>
+            <td>Angkatan </td>
+            <td> : </td>
+            <td id="angkatan"></td>
+          </tr>
+          <tr>
+            <td>Jurusan </td>
+            <td> : </td>
+            <td id="jurusan"></td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
+        <button type="submit" class="btn btn-primary btn-sm">Edit</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Modal Edit Kategori -->
 @section('js')
 <script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
 <script type="text/javascript">
@@ -249,6 +297,59 @@
       });
     });
   }
+
+  function cek() { // cek validity alumni
+    $(document).on('click', '#cek', function(){
+      Swal.fire({
+        title: 'Cek Validity Alumni',
+        text: "Akan memeriksa apakah ada data Alumni yang sesuai",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ya, Lanjutkan!',
+        timer: 6500
+      }).then((result) => {
+        if (result.value) {
+          var me = $(this),
+          url = me.attr('href'),
+          token = $('meta[name="csrf-token"]').attr('content');
+          $.ajax({
+            url: url,
+            method: "POST",
+            data : {
+              '_method' : 'PUT',
+              '_token'  : token
+            },
+            success:function(data){
+              if(data.status == 'success') {
+                // berhasil(data.status, data.pesan);
+                $('#pesan').html("<b class='text-success'>"+data.pesan+"</b>");
+                $('#stb').html("<b>"+data.data.stb+"</b>");
+                $('#nama').html("<b>"+data.data.name+"</b>");
+                $('#angkatan').html("<b>"+data.data.angkatan+"</b>");
+                $('#jurusan').html("<b>"+data.data.jurusan.nama+"</b>");             
+                $("#modal-validity").modal("show");
+              } else {
+                $('#table').html('');
+                $('#pesan').html("<b class='text-danger'>"+data.pesan+"</b>");
+                $("#modal-validity").modal("show");
+              }
+            },
+            error: function(xhr, status, error){
+              var error = xhr.responseJSON; 
+              if ($.isEmptyObject(error) == false) {
+                $.each(error.errors, function(key, value) {
+                  gagal(key, value);
+                });
+              }
+            } 
+          });
+        }
+      });
+    });
+  }
+
 
   function successToRelaoad(status, pesan) {
     Swal.fire({

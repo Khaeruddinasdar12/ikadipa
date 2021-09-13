@@ -39,6 +39,8 @@ Route::prefix('admin')->group(function() {
 	Route::get('data-alumni/{id}', 'Admin\DataAlumniController@edit')->name('edit.alumni');
 	Route::put('data-alumni/{id}', 'Admin\DataAlumniController@update')->name('update.alumni');
 	Route::delete('data-alumni/{id}', 'Admin\DataAlumniController@destroy')->name('delete.alumni');
+	Route::put('check-valid/{id}', 'Admin\DataAlumniController@cek')->name('cek.alumni');
+	Route::get('check-valid/{id}', 'Admin\DataAlumniController@cek'); //cek only
 
 	// MANAGE ALUMNI
 	Route::prefix('manage-alumni')->group(function() {
