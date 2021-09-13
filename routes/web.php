@@ -32,9 +32,16 @@ Route::prefix('admin')->group(function() {
 	Route::get('/dashboard', 'Admin\DashboardController@index')->name('admin.dashboard');
 	// END DASHBOARD
 	
+
+	// DATA ALUMNI
+	Route::get('data-alumni', 'Admin\DataAlumniController@index')->name('data.alumni');
+	Route::post('data-alumni', 'Admin\DataAlumniController@store')->name('data.alumni');
+	Route::get('data-alumni/{id}', 'Admin\DataAlumniController@edit')->name('edit.alumni');
+	Route::put('data-alumni/{id}', 'Admin\DataAlumniController@update')->name('update.alumni');
+	Route::delete('data-alumni/{id}', 'Admin\DataAlumniController@destroy')->name('delete.alumni');
+
 	// MANAGE ALUMNI
 	Route::prefix('manage-alumni')->group(function() {
-		Route::get('data-alumni', 'Admin\ManageAlumniController@dataAlumni')->name('data.alumni');
 		Route::get('alumni', 'Admin\ManageAlumniController@alumni')->name('alumni.alumni');
 		Route::get('mendaftar', 'Admin\ManageAlumniController@mendaftar')->name('alumni.mendaftar');
 		Route::get('ditolak', 'Admin\ManageAlumniController@ditolak')->name('alumni.ditolak');

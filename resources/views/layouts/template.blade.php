@@ -187,8 +187,8 @@
           </li>
 
           <li class="nav-header">Manage Users</li>
-          <li class="nav-item {{ request()->is('admin/manage-alumni/*')  ? 'has-treeview menu-open' : '' }}">
-            <a href="#" class="nav-link {{ request()->is('admin/manage-alumni/*') ? 'active' : '' }}">
+          <li class="nav-item {{ request()->is('admin/data-alumni') || request()->is('admin/manage-alumni/*')  ? 'has-treeview menu-open' : '' }}">
+            <a href="#" class="nav-link {{ request()->is('admin/data-alumni') || request()->is('admin/manage-alumni/*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-users"></i>
               <p>
                 Manage Alumni
@@ -215,7 +215,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="" class="nav-link {{ request()->is('admin/manage-alumni/data-alumni') ? 'active' : '' }}">
+                <a href="{{route('data.alumni')}}" class="nav-link {{ request()->is('admin/data-alumni') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Data Alumni</p>
                 </a>

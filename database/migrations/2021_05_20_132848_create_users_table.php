@@ -18,6 +18,7 @@ class CreateUsersTable extends Migration
             $table->integer('stb');
             $table->string('username', 35)->unique();
             $table->string('name', 50);
+            $table->string('angkatan', 4);
             $table->string('email', 50)->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
