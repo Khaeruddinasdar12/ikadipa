@@ -16,8 +16,9 @@ Route::get('/kategori-perusahaan', 'Api\SettingController@kategoriPerusahaan'); 
 
 // login user
 Route::post('/register', 'Api\UserController@register'); //register user
-
-Route::post('/login', 'Api\Admin\UserController@login'); //login user
+Route::post('/login', 'Api\UserController@login'); //login user
+Route::post('/myprofile', 'Api\UserController@myprofile'); //profile yang login
+Route::post('/wirausaha-profile', 'Api\UserController@wirausaha');
 
 // API BERITA
 Route::get('/berita', 'Api\BeritaController@berita'); //list berita
@@ -34,6 +35,7 @@ Route::get('/donasi', 'Api\DonasiController@donasi'); //list donasi
 Route::post('/donasi', 'Api\DonasiController@show'); //detail donasi
 
 // API FEED
+Route::post('/myfeed', 'Api\FeedController@myfeed'); // melihat feed berdasarkan login
 Route::get('/feed', 'Api\FeedController@index'); // index
 Route::post('/post-feed', 'Api\FeedController@store'); // post feed
 

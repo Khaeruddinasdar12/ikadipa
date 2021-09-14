@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\User;
 use Validator;
+// use App\Wirausaha;
+use DB;
 class UserController extends Controller
 {
     public function login(Request $request)
@@ -39,6 +41,7 @@ class UserController extends Controller
 
         $validator = Validator::make($request->all(), [
             'stb'  => 'required|numeric|digits:6|unique:users',
+            'angkatan'  => 'required|numeric|digits:4',
             'nama'      => 'required|string',
             'username'  => 'required|string|without_spaces|unique:users',
             'email'     => 'required|string|email|unique:users',
@@ -51,7 +54,6 @@ class UserController extends Controller
             'perusahaan'    => 'string',
             'jabatan'   => 'string',
             'alamat_perusahaan' => 'string',
-            'alamat_perusahaan_id' => 'numeric',
 
         ], [
             'username.without_spaces' => 'tidak boleh menggunakan spasi'
@@ -67,6 +69,7 @@ class UserController extends Controller
 
         $data = new User;
         $data->stb      = $request->stb;
+        $data->angkatan = $request->angkatan;
         $data->name     = $request->nama;
         $data->username = $request->username;
         $data->email    = $request->email;
@@ -82,7 +85,6 @@ class UserController extends Controller
             $data->kategori_id = $request->kategori_perusahaan_id;
             $data->jabatan = $request->jabatan;
 
-            $data->alamat_perusahaan_id = $request->alamat_perusahaan_id;
             $data->alamat_perusahaan = $request->alamat_perusahaan;
         }
 
@@ -96,5 +98,70 @@ class UserController extends Controller
             'email' => $data->email,
             'nohp'  => $data->nohp,
         ]);
+    }
+
+    public function myprofile(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'user_id'               => 'required|numeric',
+        ]);
+
+        if($validator->fails()) {
+            $message = $validator->messages()->first();
+            return response()->json([
+                'status' => false,
+                'message' => $message
+            ]);
+        }
+        $data = DB::table('users')
+                ->select('users.stb','users.username','users.name','users.angkatan','users.email','users.alamat','provinsis.nama_provinsi','kotas.tipe','kotas.nama_kota','users.nohp','users.perusahaan','users.jabatan','users.alamat_perusahaan')
+                ->join('kotas', 'users.alamat_id', '=', 'kotas.id')
+                ->join('provinsis', 'kotas.provinsi_id', '=', 'provinsis.id')
+                ->where('users.id', $request->user_id)
+                ->first();
+        if($data == '') {
+            return response()->json([
+                'status'    => false,
+                'message'   => 'Id alumni tidak ditemukan',
+            ]);
+        }
+        return response()->json([
+            'status'    => true,
+            'message'   => 'Profile Alumni',
+            'data'      => $data
+        ]);
+
+    }
+
+    public function wirausaha(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'user_id'               => 'required|numeric',
+        ]);
+        if($validator->fails()) {
+            $message = $validator->messages()->first();
+            return response()->json([
+                'status' => false,
+                'message' => $message
+            ]);
+        }
+        $data = DB::table('wirausahas')
+                ->select('wirausahas.nama','wirausahas.lokasi','wirausahas.alamat_lengkap','kotas.tipe','kotas.nama_kota','provinsis.nama_provinsi')
+                ->join('kotas', 'wirausahas.alamat_id', '=', 'kotas.id')
+                ->join('provinsis', 'kotas.provinsi_id', '=', 'provinsis.id')
+                ->where('wirausahas.user_id', $request->user_id)
+                ->get();
+        if($data == '') {
+            return response()->json([
+                'status'    => false,
+                'message'   => 'Data Tidak Ditemukan',
+            ]);
+        }
+        return response()->json([
+            'status'    => true,
+            'message'   => 'Profile Alumni',
+            'data'      => $data
+        ]);
+
     }
 }

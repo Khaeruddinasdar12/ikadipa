@@ -32,7 +32,6 @@ class CreateUsersTable extends Migration
             $table->string('perusahaan', 60)->nullable(); //nama perusahaan
             $table->bigInteger('kategori_id')->unsigned()->nullable();
             $table->string('alamat_perusahaan', 100)->nullable();
-            $table->bigInteger('alamat_perusahaan_id')->unsigned()->nullable();
             $table->string('jabatan', 20)->nullable();
             //end field perusahaan
 

@@ -19,7 +19,8 @@ class CreateWirausahasTable extends Migration
             $table->bigInteger('kategori_id')->unsigned();
             $table->bigInteger('alamat_id')->unsigned();
             $table->bigInteger('user_id')->unsigned();
-            $table->string('lokasi', 200);
+            $table->string('alamat_lengkap', 200);
+            $table->string('lokasi', 200)->nullable();
 
 
             $table->timestamps();

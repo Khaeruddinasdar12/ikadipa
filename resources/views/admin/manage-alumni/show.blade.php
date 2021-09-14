@@ -114,7 +114,7 @@
             Data Pribadi
             <address>
              <strong>{{$data->name}}</strong><br>
-             {{$data->stb}} <br>
+             {{$data->stb}} - {{$data->angkatan}} <br>
              {{$data->jurusan->nama}} <br>
              {{$data->alamat}} <br>
              {{$data->alamat_pribadi->tipe}} {{$data->alamat_pribadi->nama_kota}}, Provinsi {{$data->alamat_pribadi->provinsi->nama_provinsi}}<br>
@@ -129,7 +129,6 @@
            <strong>{{$data->kategori->nama}}</strong><br>
            {{$data->jabatan}}<br>
            {{$data->perusahaan}}<br>
-           {{$data->alamat_perusahaans->tipe}} {{$data->alamat_perusahaans->nama_kota}}, Provinsi {{$data->alamat_perusahaans->provinsi->nama_provinsi}}<br>
            {{$data->alamat_perusahaan}}
          </address>
        </div>
