@@ -8,11 +8,26 @@ use App\User;
 use Validator;
 // use App\Wirausaha;
 use DB;
+use Auth;
 class UserController extends Controller
 {
+
     public function login(Request $request)
     {
-        $credentials = $request->only('email', 'password');
+        $this->validate($request, [
+            'email'    => 'required',
+            'password' => 'required',
+        ]);
+
+        $login_type = filter_var($request->input('email'), FILTER_VALIDATE_EMAIL ) 
+        ? 'email' 
+        : 'username';
+
+        $request->merge([
+            $login_type => $request->input('email')
+        ]);
+
+        $credentials = $request->only($login_type, 'password');
 
         if(!Auth::attempt($credentials)) {
             return response()->json([
@@ -29,7 +44,7 @@ class UserController extends Controller
             'id'        => $user->id,
             'nama'      => $user->name,
             'email'     => $user->email,
-            'status'    => $user->is_active, 
+            'is_active' => $user->is_active, 
         ]); 
     }
 
@@ -114,11 +129,11 @@ class UserController extends Controller
             ]);
         }
         $data = DB::table('users')
-                ->select('users.stb','users.username','users.name','users.angkatan','users.email','users.alamat','provinsis.nama_provinsi','kotas.tipe','kotas.nama_kota','users.nohp','users.perusahaan','users.jabatan','users.alamat_perusahaan')
-                ->join('kotas', 'users.alamat_id', '=', 'kotas.id')
-                ->join('provinsis', 'kotas.provinsi_id', '=', 'provinsis.id')
-                ->where('users.id', $request->user_id)
-                ->first();
+        ->select('users.stb','users.username','users.name','users.angkatan','users.email','users.alamat','provinsis.nama_provinsi','kotas.tipe','kotas.nama_kota','users.nohp','users.perusahaan','users.jabatan','users.alamat_perusahaan')
+        ->join('kotas', 'users.alamat_id', '=', 'kotas.id')
+        ->join('provinsis', 'kotas.provinsi_id', '=', 'provinsis.id')
+        ->where('users.id', $request->user_id)
+        ->first();
         if($data == '') {
             return response()->json([
                 'status'    => false,
@@ -146,11 +161,11 @@ class UserController extends Controller
             ]);
         }
         $data = DB::table('wirausahas')
-                ->select('wirausahas.nama','wirausahas.lokasi','wirausahas.alamat_lengkap','kotas.tipe','kotas.nama_kota','provinsis.nama_provinsi')
-                ->join('kotas', 'wirausahas.alamat_id', '=', 'kotas.id')
-                ->join('provinsis', 'kotas.provinsi_id', '=', 'provinsis.id')
-                ->where('wirausahas.user_id', $request->user_id)
-                ->get();
+        ->select('wirausahas.nama','wirausahas.lokasi','wirausahas.alamat_lengkap','kotas.tipe','kotas.nama_kota','provinsis.nama_provinsi')
+        ->join('kotas', 'wirausahas.alamat_id', '=', 'kotas.id')
+        ->join('provinsis', 'kotas.provinsi_id', '=', 'provinsis.id')
+        ->where('wirausahas.user_id', $request->user_id)
+        ->get();
         if($data == '') {
             return response()->json([
                 'status'    => false,
