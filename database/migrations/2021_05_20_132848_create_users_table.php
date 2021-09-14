@@ -25,6 +25,7 @@ class CreateUsersTable extends Migration
             $table->string('alamat', 100);
             $table->bigInteger('alamat_id')->unsigned();
             $table->string('nohp', 15);
+            $table->enum('jkel', ['L', 'P']);
             $table->bigInteger('jurusan_id')->unsigned();
             $table->enum('is_active', ['0','1', 'tolak']); // 0 inactive, 1 is_active
 

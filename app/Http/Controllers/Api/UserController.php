@@ -58,6 +58,7 @@ class UserController extends Controller
             'stb'  => 'required|numeric|digits:6|unique:users',
             'angkatan'  => 'required|numeric|digits:4',
             'nama'      => 'required|string',
+            'jkel'      => 'required|string',
             'username'  => 'required|string|without_spaces|unique:users',
             'email'     => 'required|string|email|unique:users',
             'password'  => 'required|string|min:8|confirmed',
@@ -86,6 +87,7 @@ class UserController extends Controller
         $data->stb      = $request->stb;
         $data->angkatan = $request->angkatan;
         $data->name     = $request->nama;
+        $data->jkel     = $request->jkel;
         $data->username = $request->username;
         $data->email    = $request->email;
         $data->password = bcrypt($request->password);
