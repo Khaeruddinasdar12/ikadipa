@@ -8,6 +8,7 @@ use App\Jurusan;
 use App\Provinsi;
 use App\Kota;
 use App\KategoriPerusahaan;
+use Validator;
 class SettingController extends Controller
 {
     public function kategoriPerusahaan()
@@ -43,13 +44,24 @@ class SettingController extends Controller
         ]); 
     }
 
-    public function kota()
+    public function kota(Request $request)
     {
-        $data = Kota::get();
+        $validator = Validator::make($request->all(), [
+            'provinsi_id' => 'required|numeric',
+        ]);
+
+        if($validator->fails()) {
+            $message = $validator->messages()->first();
+            return response()->json([
+                'status' => false,
+                'message' => $message
+            ]);
+        }
+        $data = Kota::where('provinsi_id', $request->provinsi_id)->get();
         
         return response()->json([
             'status'    => true,
-            'message'   => 'Semua Kota',
+            'message'   => 'Kota Berdasarkan Id Provinsi',
             'data' => $data
         ]); 
     }
