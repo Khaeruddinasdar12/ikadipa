@@ -46,7 +46,7 @@ class UserController extends Controller
             ]);
         } else if($user->is_active == 'tolak') {
             return response()->json([
-                'status'    => false,
+                'status'    => true,
                 'message'   => $user->komentar, 
                 'is_active' => $user->is_active, //tolak
             ]);

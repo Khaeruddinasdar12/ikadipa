@@ -20,6 +20,9 @@ Route::post('/login', 'Api\UserController@login'); //login user
 Route::post('/myprofile', 'Api\UserController@myprofile'); //profile yang login
 Route::post('/wirausaha-profile', 'Api\UserController@wirausaha');
 
+// API ALUMNI
+Route::post('/data-alumni', 'Api\AlumniController@index');
+
 // API BERITA
 Route::get('/berita', 'Api\BeritaController@berita'); //list berita
 Route::post('/berita', 'Api\BeritaController@show'); //detail berita
