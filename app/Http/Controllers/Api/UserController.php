@@ -37,15 +37,31 @@ class UserController extends Controller
         } 
 
         $user = Auth::user();
+        if($user->is_active == '0') {
+            return response()->json([
+                'status'    => true,
+                'message'   => 'Akun Anda Masih Tahap Validasi',
+                'is_active' => $user->is_active, //0 
 
-        return response()->json([
-            'status'    => true,
-            'message'   => 'Berhasil login user',
-            'id'        => $user->id,
-            'nama'      => $user->name,
-            'email'     => $user->email,
-            'is_active' => $user->is_active, 
-        ]); 
+            ]);
+        } else if($user->is_active == 'tolak') {
+            return response()->json([
+                'status'    => false,
+                'message'   => $user->komentar, 
+                'is_active' => $user->is_active, //tolak
+            ]);
+        } else {
+            return response()->json([
+                'status'    => true,
+                'message'   => 'Berhasil login user',
+                'id'        => $user->id,
+                'nama'      => $user->name,
+                'email'     => $user->email,
+                'is_active' => $user->is_active, 
+            ]);
+        }
+
+
     }
 
     public function register(Request $request) //menambah data admin

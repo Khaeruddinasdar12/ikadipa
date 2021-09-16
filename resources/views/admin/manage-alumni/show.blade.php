@@ -115,6 +115,11 @@
             <address>
              <strong>{{$data->name}}</strong><br>
              {{$data->stb}} - {{$data->angkatan}} <br>
+             @if($data->jkel == 'L')
+              Laki-Laki <br>
+              @else
+              Perempuan <br>
+             @endif
              {{$data->jurusan->nama}} <br>
              {{$data->alamat}} <br>
              {{$data->alamat_pribadi->tipe}} {{$data->alamat_pribadi->nama_kota}}, Provinsi {{$data->alamat_pribadi->provinsi->nama_provinsi}}<br>
@@ -240,11 +245,6 @@
             <td id="jurusan"></td>
           </tr>
         </table>
-      </div>
-
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
-        <button type="submit" class="btn btn-primary btn-sm">Edit</button>
       </div>
     </div>
   </div>
