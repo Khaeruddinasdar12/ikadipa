@@ -147,7 +147,8 @@ class UserController extends Controller
             ]);
         }
         $data = DB::table('users')
-        ->select('users.stb','users.username','users.name','users.angkatan','users.email','users.alamat','provinsis.nama_provinsi','kotas.tipe','kotas.nama_kota','users.nohp','users.perusahaan','users.jabatan','users.alamat_perusahaan')
+        ->select('users.stb','users.username','users.name','users.angkatan','jurusans.nama as jurusan','users.email','users.alamat','provinsis.nama_provinsi','kotas.tipe','kotas.nama_kota','users.nohp','users.perusahaan','users.jabatan','users.alamat_perusahaan')
+        ->join('jurusans', 'users.jurusan_id', '=', 'jurusans.id')
         ->join('kotas', 'users.alamat_id', '=', 'kotas.id')
         ->join('provinsis', 'kotas.provinsi_id', '=', 'provinsis.id')
         ->where('users.id', $request->user_id)
