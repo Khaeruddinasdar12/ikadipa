@@ -17,6 +17,7 @@ class AlumniController extends Controller
             ->where('users.is_active', '1')
             ->where('users.name', 'like', '%'.$request->cari.'%')
             ->where('users.angkatan', $request->angkatan)
+            ->orderBy('users.angkatan', 'desc') //terbaru
             ->paginate(15);
         } else if ($request->cari != '' && $request->jurusan != '') {
             $data = DB::table('users')
@@ -25,20 +26,38 @@ class AlumniController extends Controller
             ->where('users.is_active', '1')
             ->where('users.name', 'like', '%'.$request->cari.'%')
             ->where('users.jurusan_id', $request->jurusan)
+            ->orderBy('users.angkatan', 'desc') //terbaru
             ->paginate(15);
-        } else if ($request->cari != '') {
+        } else if ($request->cari != '') { // jika cari tidak kosong
             $data = DB::table('users')
             ->select('users.stb','users.username','users.name','users.angkatan','jurusans.nama as jurusan','users.email','users.alamat','users.nohp','users.perusahaan','users.jabatan','users.alamat_perusahaan')
             ->join('jurusans', 'users.jurusan_id', '=', 'jurusans.id')
             ->where('users.is_active', '1')
             ->where('users.name', 'like', '%'.$request->cari.'%')
+            ->orderBy('users.angkatan', 'desc') //terbaru
+            ->paginate(15);
+        } else if ($request->angkatan != '') { // jika angkatan tidak kosong
+            $data = DB::table('users')
+            ->select('users.stb','users.username','users.name','users.angkatan','jurusans.nama as jurusan','users.email','users.alamat','users.nohp','users.perusahaan','users.jabatan','users.alamat_perusahaan')
+            ->join('jurusans', 'users.jurusan_id', '=', 'jurusans.id')
+            ->where('users.is_active', '1')
+            ->where('users.angkatan', $request->angkatan)
+            ->orderBy('users.angkatan', 'desc') //terbaru
+            ->paginate(15);
+        } else if ($request->jurusan != '') { // jika jurusan tidak kosong
+            $data = DB::table('users')
+            ->select('users.stb','users.username','users.name','users.angkatan','jurusans.nama as jurusan','users.email','users.alamat','users.nohp','users.perusahaan','users.jabatan','users.alamat_perusahaan')
+            ->join('jurusans', 'users.jurusan_id', '=', 'jurusans.id')
+            ->where('users.is_active', '1')
+            ->where('users.jurusan_id', $request->jurusan)
+            ->orderBy('users.angkatan', 'desc') //terbaru
             ->paginate(15);
         } else {
             $data = DB::table('users')
             ->select('users.stb','users.username','users.name','users.angkatan','jurusans.nama as jurusan','users.email','users.alamat','users.nohp','users.perusahaan','users.jabatan','users.alamat_perusahaan')
             ->join('jurusans', 'users.jurusan_id', '=', 'jurusans.id')
             ->where('users.is_active', '1')
-            ->join('jurusans', 'users.jurusan_id', '=', 'jurusans.id')
+            ->orderBy('users.angkatan', 'desc') //terbaru
             ->paginate(15);
         }
         return response()->json([

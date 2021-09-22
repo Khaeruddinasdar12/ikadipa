@@ -39,6 +39,7 @@ class FeedController extends Controller
 
     public function myfeed(Request $request)
     {
+        // return 'hha';
         $validator = Validator::make($request->all(), [
             'user_id'  => 'required|numeric',
         ]);
@@ -64,7 +65,7 @@ class FeedController extends Controller
 
         return response()->json([
             'status' => true,
-            'message'   => 'Feed limit 15 data', 
+            'message'   => 'My Feed limit 15 data', 
             'data'  => $data->items(),
             'current_page' => $data->currentPage(),
             'first_page_url' => $data->url(1),

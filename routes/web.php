@@ -17,9 +17,6 @@ Route::get('test-email', function(){
 	]);
 });
 
-
-
-
 Route::prefix('admin')->group(function() {
 	// AUTH
 	Route::get('/login', 'Auth\AdminAuthController@getLogin')->name('admin.login');
