@@ -7,9 +7,50 @@ use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Validator;
 use App\Wirausaha;
-
+use DB;
 class WirausahaController extends Controller
 {
+    public function index(Request $request)
+    {
+        if($request->cari != '') {
+            $data = DB::table('wirausahas')
+            ->select('wirausahas.nama','wirausahas.alamat_lengkap','wirausahas.lokasi','kategori_perusahaans.nama as nama_kategori','users.name as nama_pemilik','kotas.tipe','kotas.nama_kota','provinsis.nama_provinsi')
+            ->join('users', 'wirausahas.user_id', '=', 'users.id')
+            ->join('kotas', 'wirausahas.alamat_id', '=', 'kotas.id')
+            ->join('provinsis', 'kotas.provinsi_id', '=', 'provinsis.id')
+            ->join('kategori_perusahaans', 'wirausahas.kategori_id', '=', 'kategori_perusahaans.id')
+            ->where('users.name', 'like', '%'.$request->cari.'%')
+            ->paginate(10);
+        } else {
+            $data = DB::table('wirausahas')
+            ->select('wirausahas.nama','wirausahas.alamat_lengkap','wirausahas.lokasi','kategori_perusahaans.nama as nama_kategori','users.name as nama_pemilik','kotas.tipe','kotas.nama_kota','provinsis.nama_provinsi')
+            ->join('users', 'wirausahas.user_id', '=', 'users.id')
+            ->join('kotas', 'wirausahas.alamat_id', '=', 'kotas.id')
+            ->join('provinsis', 'kotas.provinsi_id', '=', 'provinsis.id')
+            ->join('kategori_perusahaans', 'wirausahas.kategori_id', '=', 'kategori_perusahaans.id')
+            ->paginate(10);
+        }
+
+        return response()->json([
+            'status' => true,
+            'message'   => 'Data Wirausaha limit 10 data', 
+            'data'  => $data->items(),
+            'current_page' => $data->currentPage(),
+            'first_page_url' => $data->url(1),
+            'from' => $data->firstItem(),
+            'last_page' => $data->lastPage(),
+
+            'last_page_url' => $data->url($data->lastPage()) ,
+            'next_page_url' => $data->nextPageUrl(),
+            'path'  => $data->path(),
+            'per_page' => $data->perPage(),
+            'prev_page_url' => $data->previousPageUrl(),
+            'to' => $data->count(),
+            'total' => $data->total()
+        ]);
+
+    }
+
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -43,6 +84,40 @@ class WirausahaController extends Controller
         return response()->json([
             'status'    => true,
             'message'   => 'Data wirausaha ditambahkan',
+        ]);
+
+    }
+
+    public function wirausaha(Request $request) // wirausaha per profile
+    {
+        $validator = Validator::make($request->all(), [
+            'user_id'               => 'required|numeric',
+        ]);
+        if($validator->fails()) {
+            $message = $validator->messages()->first();
+            return response()->json([
+                'status' => false,
+                'message' => $message
+            ]);
+        }
+        $data = DB::table('wirausahas')
+            ->select('wirausahas.nama','wirausahas.alamat_lengkap','wirausahas.lokasi','kategori_perusahaans.nama as nama_kategori','kotas.tipe','kotas.nama_kota','provinsis.nama_provinsi')
+            ->join('users', 'wirausahas.user_id', '=', 'users.id')
+            ->join('kotas', 'wirausahas.alamat_id', '=', 'kotas.id')
+            ->join('provinsis', 'kotas.provinsi_id', '=', 'provinsis.id')
+            ->join('kategori_perusahaans', 'wirausahas.kategori_id', '=', 'kategori_perusahaans.id')
+            ->where('users.id', $request->user_id)
+            ->get();
+        if($data == '') {
+            return response()->json([
+                'status'    => false,
+                'message'   => 'Data Tidak Ditemukan',
+            ]);
+        }
+        return response()->json([
+            'status'    => true,
+            'message'   => 'Profile Alumni',
+            'data'      => $data
         ]);
 
     }

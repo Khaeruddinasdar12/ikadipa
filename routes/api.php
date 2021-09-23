@@ -18,7 +18,7 @@ Route::get('/kategori-perusahaan', 'Api\SettingController@kategoriPerusahaan'); 
 Route::post('/register', 'Api\UserController@register'); //register user
 Route::post('/login', 'Api\UserController@login'); //login user
 Route::post('/myprofile', 'Api\UserController@myprofile'); //profile yang login
-Route::post('/wirausaha-profile', 'Api\UserController@wirausaha');
+
 
 // API ALUMNI
 Route::post('/data-alumni', 'Api\AlumniController@index');
@@ -43,6 +43,8 @@ Route::get('/feed', 'Api\FeedController@index'); // index
 Route::post('/post-feed', 'Api\FeedController@store'); // post feed
 
 // API WIRAUSAHA
-Route::post('/wirausaha', 'Api\WirausahaController@store'); // post wirausaha
+Route::post('/post-wirausaha', 'Api\WirausahaController@store'); // post wirausaha
+Route::post('/data-wirausaha', 'Api\WirausahaController@index'); // data wirausaha
+Route::post('/wirausaha-profile', 'Api\WirausahaController@wirausaha'); // per login/profile
 
 

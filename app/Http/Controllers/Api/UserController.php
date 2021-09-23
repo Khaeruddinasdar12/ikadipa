@@ -166,36 +166,4 @@ class UserController extends Controller
         ]);
 
     }
-
-    public function wirausaha(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'user_id'               => 'required|numeric',
-        ]);
-        if($validator->fails()) {
-            $message = $validator->messages()->first();
-            return response()->json([
-                'status' => false,
-                'message' => $message
-            ]);
-        }
-        $data = DB::table('wirausahas')
-        ->select('wirausahas.nama','wirausahas.lokasi','wirausahas.alamat_lengkap','kotas.tipe','kotas.nama_kota','provinsis.nama_provinsi')
-        ->join('kotas', 'wirausahas.alamat_id', '=', 'kotas.id')
-        ->join('provinsis', 'kotas.provinsi_id', '=', 'provinsis.id')
-        ->where('wirausahas.user_id', $request->user_id)
-        ->get();
-        if($data == '') {
-            return response()->json([
-                'status'    => false,
-                'message'   => 'Data Tidak Ditemukan',
-            ]);
-        }
-        return response()->json([
-            'status'    => true,
-            'message'   => 'Profile Alumni',
-            'data'      => $data
-        ]);
-
-    }
 }
