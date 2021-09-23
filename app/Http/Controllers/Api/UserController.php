@@ -152,7 +152,7 @@ class UserController extends Controller
         ->join('kotas', 'users.alamat_id', '=', 'kotas.id')
         ->join('provinsis', 'kotas.provinsi_id', '=', 'provinsis.id')
         ->where('users.id', $request->user_id)
-        ->first();
+        ->get();
         if($data == '') {
             return response()->json([
                 'status'    => false,
