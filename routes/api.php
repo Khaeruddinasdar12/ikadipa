@@ -10,6 +10,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 // SETTING
 Route::get('/jurusan', 'Api\SettingController@jurusan'); //jurusan
 Route::get('/provinsi', 'Api\SettingController@provinsi'); //provinsi
+Route::get('/promo', 'Api\PromoController@index'); // data promo
 
 Route::post('/kota', 'Api\SettingController@kota'); //kota
 Route::get('/kategori-perusahaan', 'Api\SettingController@kategoriPerusahaan'); //kategori perusahaan 

@@ -234,6 +234,14 @@
 
           <li class="nav-header">Setting</li>
           <li class="nav-item">
+            <a href="{{route('admin.promo')}}" class="nav-link {{ request()->is('admin') || request()->is('admin/manage-promo') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-book-reader"></i>
+              <p>
+                Manage Promo
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="{{route('admin.setting')}}" class="nav-link {{ request()->is('admin/setting') ? 'active' : '' }}">
               <i class="nav-icon fas fa-cog"></i>
               <p>

@@ -40,8 +40,8 @@
 						</div>
 					</div>
 					
-					<div class="card-body">
-						<form method="post" id="add-kategori">
+					<form method="post" id="add-kategori">
+						<div class="card-body">
 							@csrf
 							<label>Kategori Perusahaan</label>
 							<div class="form-group">
@@ -51,9 +51,8 @@
 						<div class="card-footer">
 							<button type="reset" class="btn btn-default">Reset</button>
 							<button type="submit" class="btn btn-primary float-right">Submit</button>
-						</form>
-					</div>
-					
+						</div>
+					</form>
 				</div>
 			</div>
 			<div class="col-6">
@@ -266,7 +265,7 @@
             		});
             	}
             } 
-          }); 
+        }); 
 	});
 
 	$('#edit-kategori').submit(function(e){ //edit kategori
@@ -351,7 +350,7 @@
             		});
             	}
             } 
-          }); 
+        }); 
 	});
 
 	function hapus_data() { // menghapus jurusan
@@ -410,13 +409,13 @@
 			"ajax":  {
                 "url":  '{{route("table.kategori")}}', // URL file untuk proses select datanya
                 "type": "GET"
-              },
-              "columns": [
-              { data: 'DT_RowIndex', name:'DT_RowIndex'},
-              { "data": "nama" },
-              { "data": "action" },
-              ]
-            });
+            },
+            "columns": [
+            { data: 'DT_RowIndex', name:'DT_RowIndex'},
+            { "data": "nama" },
+            { "data": "action" },
+            ]
+        });
 	});
 
 	jurusan = $(document).ready(function(){
@@ -430,14 +429,14 @@
 			"ajax":  {
                 "url":  '{{route("table.jurusan")}}', // URL file untuk proses select datanya
                 "type": "GET"
-              },
-              "columns": [
-              { data: 'DT_RowIndex', name:'DT_RowIndex'},
-              { "data": "kode" },
-              { "data": "nama" },
-              { "data": "action" },
-              ]
-            });
+            },
+            "columns": [
+            { data: 'DT_RowIndex', name:'DT_RowIndex'},
+            { "data": "kode" },
+            { "data": "nama" },
+            { "data": "action" },
+            ]
+        });
 	});
 
 	function berhasil(status, pesan) {

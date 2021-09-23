@@ -115,6 +115,13 @@ Route::prefix('admin')->group(function() {
 	});
 	// END BERITA
 
+	// DASHBOARD
+	Route::get('/manage-promo', 'Admin\PromoController@index')->name('admin.promo');
+	Route::post('/manage-promo', 'Admin\PromoController@store')->name('admin.promo');
+	Route::get('/table-promo', 'Admin\PromoController@tablePromo')->name('table.promo');
+	// END DASHBOARD
+
+
 	// SETTING
 	Route::get('/setting', 'Admin\SettingController@index')->name('admin.setting');
 
