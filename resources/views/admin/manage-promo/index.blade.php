@@ -103,6 +103,7 @@ Manage Promo
 				processData: false,
 				success:function(data){
 					$('#add-promo')[0].reset();
+					$('#modal-tambah-promo').hide();
 					$('#tabel_promo').DataTable().ajax.reload();
 					berhasil(data.status, data.pesan);
 				},
