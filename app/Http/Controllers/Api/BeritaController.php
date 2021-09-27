@@ -55,7 +55,7 @@ class BeritaController extends Controller
         ->leftjoin("kategori_beritas",\DB::raw("FIND_IN_SET(kategori_beritas.id,beritas.kategori)"),">",\DB::raw("'0'"))
         ->groupBy('beritas.id')
         ->where('beritas.id', $request->berita_id)
-        ->first();
+        ->get();
 
         if($data == '') {
             return response()->json([

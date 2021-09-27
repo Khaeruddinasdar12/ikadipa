@@ -47,7 +47,7 @@ class DonasiController extends Controller
             ]);
         }
 
-        $data = Donasi::find($request->donasi_id);
+        $data = Donasi::where('id', $request->donasi_id)->get();
         if($data == '') {
             return response()->json([
                 'status' => false,

@@ -46,7 +46,7 @@ class EventController extends Controller
             ]);
         }
 
-        $data = Event::find($request->event_id);
+        $data = Event::where('id', $request->event_id)->get();
         if($data == '') {
             return response()->json([
                 'status' => false,
