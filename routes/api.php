@@ -43,6 +43,7 @@ Route::post('/donasi', 'Api\DonasiController@show'); //detail donasi
 Route::post('/myfeed', 'Api\FeedController@myfeed'); // melihat feed berdasarkan login
 Route::get('/feed', 'Api\FeedController@index'); // index
 Route::post('/post-feed', 'Api\FeedController@store'); // post feed
+Route::post('/delete-feed', 'Api\FeedController@delete'); //delete feed
 
 // API WIRAUSAHA
 Route::post('/post-wirausaha', 'Api\WirausahaController@store'); // post wirausaha

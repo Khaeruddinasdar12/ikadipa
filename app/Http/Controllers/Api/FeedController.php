@@ -13,10 +13,10 @@ class FeedController extends Controller
     public function index()
     {
         $data = DB::table('feeds')
-                ->select('feeds.id', 'feeds.status', 'feeds.gambar', 'users.name', DB::raw('DATE_FORMAT(feeds.created_at, "%H:%i %d %b %Y") as created_at'))
-                ->join('users', 'feeds.user_id', '=', 'users.id')
-                ->orderBy('feeds.created_at', 'desc')
-                ->paginate(15);
+        ->select('feeds.id', 'feeds.status', 'feeds.gambar', 'users.name', DB::raw('DATE_FORMAT(feeds.created_at, "%H:%i %d %b %Y") as created_at'))
+        ->join('users', 'feeds.user_id', '=', 'users.id')
+        ->orderBy('feeds.created_at', 'desc')
+        ->paginate(15);
 
         return response()->json([
             'status' => true,
@@ -57,11 +57,11 @@ class FeedController extends Controller
         }
 
         $data = DB::table('feeds')
-                ->select('feeds.id', 'feeds.status', 'feeds.gambar', 'users.name', DB::raw('DATE_FORMAT(feeds.created_at, "%H:%i %d %b %Y") as created_at'))
-                ->join('users', 'feeds.user_id', '=', 'users.id')
-                ->orderBy('feeds.created_at', 'desc')
-                ->where('feeds.user_id', $request->user_id)
-                ->paginate(15);
+        ->select('feeds.id', 'feeds.status', 'feeds.gambar', 'users.name', DB::raw('DATE_FORMAT(feeds.created_at, "%H:%i %d %b %Y") as created_at'))
+        ->join('users', 'feeds.user_id', '=', 'users.id')
+        ->orderBy('feeds.created_at', 'desc')
+        ->where('feeds.user_id', $request->user_id)
+        ->paginate(15);
 
         return response()->json([
             'status' => true,
@@ -117,6 +117,47 @@ class FeedController extends Controller
             'status'    => true,
             'message'   => 'Berhasil memposting',
         ]);
+    }
+
+    public function delete(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'user_id'  => 'required|numeric',
+            'feed_id'   => 'required|numeric',
+        ]);
+
+        if($validator->fails()) {
+            $message = $validator->messages()->first();
+            return response()->json([
+                'status' => false,
+                'message' => $message
+            ]);
+        }
+        
+        if($this->login($request->user_id) == false) {
+            return $this->error;
+        }
+
+        $data = Feed::find($request->feed_id);
+        if($data == '') {
+            return response()->json([
+                'status' => false,
+                'message' => 'id feed tidak ditemukan'
+            ]);
+        }
+        if($data->user_id == $request->user_id && $data->id == $request->feed_id) {
+            $data->delete();
+            return response()->json([
+                'status'    => true,
+                'message'   => 'Berhasil menghapus feed',
+            ]);
+        } 
+        return response()->json([
+            'status'    => false,
+            'message'   => 'feed ini bukan milik Anda',
+        ]);
+
+        
     }
 
     private $user;
