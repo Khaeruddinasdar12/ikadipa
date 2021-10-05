@@ -199,6 +199,7 @@ class UserController extends Controller
           'message' => $message
         ]);
       } 
+      $data->password  = $request->password;
       $pesan = 'Berhasil mengubah password';
     }
 
