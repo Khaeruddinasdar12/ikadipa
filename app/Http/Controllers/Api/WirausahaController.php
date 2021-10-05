@@ -54,11 +54,11 @@ class WirausahaController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'user_id'               => 'required|numeric',
-            'kategori_perusahaan_id'   => 'required|numeric',
-            'alamat_id'   => 'required|numeric',
-            // 'lokasi'   => 'ing',
-            'nama'   => 'required|string',
+            'user_id' => 'required|numeric',
+            'kategori_perusahaan_id' => 'required|numeric',
+            'alamat_id' => 'required|numeric',
+            'alamat_lengkap' => 'required|string',
+            'nama' => 'required|string',
         ]);
 
         if($validator->fails()) {
@@ -80,6 +80,7 @@ class WirausahaController extends Controller
         }
         $data->user_id = $request->user_id;
         $data->alamat_id = $request->alamat_id;
+        $data->alamat_lengkap = $request->alamat_lengkap;
         $data->kategori_id = $request->kategori_perusahaan_id;
         $data->save();
 
@@ -97,7 +98,7 @@ class WirausahaController extends Controller
             'wirausaha_id'               => 'required|numeric',
             'kategori_perusahaan_id'   => 'required|numeric',
             'alamat_id'   => 'required|numeric',
-            'lokasi'   => 'required|string',
+            'alamat_lengkap'   => 'required|string',
             'nama'   => 'required|string',
         ]);
 
@@ -121,7 +122,10 @@ class WirausahaController extends Controller
             ]);
         }
         $data->nama = $request->nama;
-        $data->lokasi = $request->lokasi;
+        if($request->lokasi != '') {
+            $data->lokasi = $request->lokasi;
+        }
+        $data->alamat_lengkap = $request->alamat_lengkap;
         $data->user_id = $request->user_id;
         $data->alamat_id = $request->alamat_id;
         $data->kategori_id = $request->kategori_perusahaan_id;
