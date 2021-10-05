@@ -20,6 +20,7 @@ class WirausahaController extends Controller
             ->join('provinsis', 'kotas.provinsi_id', '=', 'provinsis.id')
             ->join('kategori_perusahaans', 'wirausahas.kategori_id', '=', 'kategori_perusahaans.id')
             ->where('users.name', 'like', '%'.$request->cari.'%')
+            ->orWhere('wirausahas.nama','like', '%'.$request->cari.'%')
             ->paginate(10);
         } else {
             $data = DB::table('wirausahas')
