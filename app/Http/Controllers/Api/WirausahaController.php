@@ -14,7 +14,7 @@ class WirausahaController extends Controller
     {
         if($request->cari != '') {
             $data = DB::table('wirausahas')
-            ->select('wirausahas.nama','wirausahas.alamat_lengkap','wirausahas.lokasi','kategori_perusahaans.nama as nama_kategori','users.name as nama_pemilik','kotas.tipe','kotas.nama_kota','provinsis.nama_provinsi')
+            ->select('wirausahas.id','wirausahas.nama','wirausahas.alamat_lengkap','wirausahas.lokasi','kategori_perusahaans.nama as nama_kategori','users.name as nama_pemilik','kotas.tipe','kotas.nama_kota','provinsis.nama_provinsi')
             ->join('users', 'wirausahas.user_id', '=', 'users.id')
             ->join('kotas', 'wirausahas.alamat_id', '=', 'kotas.id')
             ->join('provinsis', 'kotas.provinsi_id', '=', 'provinsis.id')
@@ -23,7 +23,7 @@ class WirausahaController extends Controller
             ->paginate(10);
         } else {
             $data = DB::table('wirausahas')
-            ->select('wirausahas.nama','wirausahas.alamat_lengkap','wirausahas.lokasi','kategori_perusahaans.nama as nama_kategori','users.name as nama_pemilik','kotas.tipe','kotas.nama_kota','provinsis.nama_provinsi')
+            ->select('wirausahas.id','wirausahas.nama','wirausahas.alamat_lengkap','wirausahas.lokasi','kategori_perusahaans.nama as nama_kategori','users.name as nama_pemilik','kotas.tipe','kotas.nama_kota','provinsis.nama_provinsi')
             ->join('users', 'wirausahas.user_id', '=', 'users.id')
             ->join('kotas', 'wirausahas.alamat_id', '=', 'kotas.id')
             ->join('provinsis', 'kotas.provinsi_id', '=', 'provinsis.id')
@@ -151,7 +151,7 @@ class WirausahaController extends Controller
             ]);
         }
         $data = DB::table('wirausahas')
-        ->select('wirausahas.nama','wirausahas.alamat_lengkap','wirausahas.lokasi','kategori_perusahaans.nama as nama_kategori','kotas.tipe','kotas.nama_kota','provinsis.nama_provinsi')
+        ->select('wirausahas.id','wirausahas.nama','wirausahas.alamat_lengkap','wirausahas.lokasi','kategori_perusahaans.nama as nama_kategori','kotas.tipe','kotas.nama_kota','provinsis.nama_provinsi')
         ->join('users', 'wirausahas.user_id', '=', 'users.id')
         ->join('kotas', 'wirausahas.alamat_id', '=', 'kotas.id')
         ->join('provinsis', 'kotas.provinsi_id', '=', 'provinsis.id')
