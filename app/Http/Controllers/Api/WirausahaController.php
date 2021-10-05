@@ -57,7 +57,7 @@ class WirausahaController extends Controller
             'user_id'               => 'required|numeric',
             'kategori_perusahaan_id'   => 'required|numeric',
             'alamat_id'   => 'required|numeric',
-            'lokasi'   => 'required|string',
+            // 'lokasi'   => 'ing',
             'nama'   => 'required|string',
         ]);
 
@@ -75,7 +75,9 @@ class WirausahaController extends Controller
 
         $data = new Wirausaha;
         $data->nama = $request->nama;
-        $data->lokasi = $request->lokasi;
+        if($request->lokasi != '') {
+            $data->lokasi = $request->lokasi;
+        }
         $data->user_id = $request->user_id;
         $data->alamat_id = $request->alamat_id;
         $data->kategori_id = $request->kategori_perusahaan_id;
