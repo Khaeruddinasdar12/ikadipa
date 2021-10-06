@@ -12,7 +12,7 @@ class AlumniController extends Controller
     {
         if ($request->cari != '' && $request->angkatan != '') {
             $data = DB::table('users')
-            ->select('users.stb','users.username','users.name','users.angkatan','jurusans.nama as jurusan','users.email','users.alamat','users.nohp','users.perusahaan','users.jabatan','users.alamat_perusahaan')
+            ->select('users.id','users.stb','users.username','users.name','users.angkatan','jurusans.nama as jurusan','users.email','users.alamat','users.nohp','users.perusahaan','users.jabatan','users.alamat_perusahaan')
             ->join('jurusans', 'users.jurusan_id', '=', 'jurusans.id')
             ->where('users.is_active', '1')
             ->where('users.name', 'like', '%'.$request->cari.'%')
@@ -21,7 +21,7 @@ class AlumniController extends Controller
             ->paginate(15);
         } else if ($request->cari != '' && $request->jurusan != '') {
             $data = DB::table('users')
-            ->select('users.stb','users.username','users.name','users.angkatan','jurusans.nama as jurusan','users.email','users.alamat','users.nohp','users.perusahaan','users.jabatan','users.alamat_perusahaan')
+            ->select('users.id','users.stb','users.username','users.name','users.angkatan','jurusans.nama as jurusan','users.email','users.alamat','users.nohp','users.perusahaan','users.jabatan','users.alamat_perusahaan')
             ->join('jurusans', 'users.jurusan_id', '=', 'jurusans.id')
             ->where('users.is_active', '1')
             ->where('users.name', 'like', '%'.$request->cari.'%')
@@ -30,7 +30,7 @@ class AlumniController extends Controller
             ->paginate(15);
         } else if ($request->cari != '') { // jika cari tidak kosong
             $data = DB::table('users')
-            ->select('users.stb','users.username','users.name','users.angkatan','jurusans.nama as jurusan','users.email','users.alamat','users.nohp','users.perusahaan','users.jabatan','users.alamat_perusahaan')
+            ->select('users.id','users.stb','users.username','users.name','users.angkatan','jurusans.nama as jurusan','users.email','users.alamat','users.nohp','users.perusahaan','users.jabatan','users.alamat_perusahaan')
             ->join('jurusans', 'users.jurusan_id', '=', 'jurusans.id')
             ->where('users.is_active', '1')
             ->where('users.name', 'like', '%'.$request->cari.'%')
@@ -38,7 +38,7 @@ class AlumniController extends Controller
             ->paginate(15);
         } else if ($request->angkatan != '') { // jika angkatan tidak kosong
             $data = DB::table('users')
-            ->select('users.stb','users.username','users.name','users.angkatan','jurusans.nama as jurusan','users.email','users.alamat','users.nohp','users.perusahaan','users.jabatan','users.alamat_perusahaan')
+            ->select('users.id','users.stb','users.username','users.name','users.angkatan','jurusans.nama as jurusan','users.email','users.alamat','users.nohp','users.perusahaan','users.jabatan','users.alamat_perusahaan')
             ->join('jurusans', 'users.jurusan_id', '=', 'jurusans.id')
             ->where('users.is_active', '1')
             ->where('users.angkatan', $request->angkatan)
@@ -46,7 +46,7 @@ class AlumniController extends Controller
             ->paginate(15);
         } else if ($request->jurusan != '') { // jika jurusan tidak kosong
             $data = DB::table('users')
-            ->select('users.stb','users.username','users.name','users.angkatan','jurusans.nama as jurusan','users.email','users.alamat','users.nohp','users.perusahaan','users.jabatan','users.alamat_perusahaan')
+            ->select('users.id','users.stb','users.username','users.name','users.angkatan','jurusans.nama as jurusan','users.email','users.alamat','users.nohp','users.perusahaan','users.jabatan','users.alamat_perusahaan')
             ->join('jurusans', 'users.jurusan_id', '=', 'jurusans.id')
             ->where('users.is_active', '1')
             ->where('users.jurusan_id', $request->jurusan)
@@ -54,7 +54,7 @@ class AlumniController extends Controller
             ->paginate(15);
         } else {
             $data = DB::table('users')
-            ->select('users.stb','users.username','users.name','users.angkatan','jurusans.nama as jurusan','users.email','users.alamat','users.nohp','users.perusahaan','users.jabatan','users.alamat_perusahaan')
+            ->select('users.id','users.stb','users.username','users.name','users.angkatan','jurusans.nama as jurusan','users.email','users.alamat','users.nohp','users.perusahaan','users.jabatan','users.alamat_perusahaan')
             ->join('jurusans', 'users.jurusan_id', '=', 'jurusans.id')
             ->where('users.is_active', '1')
             ->orderBy('users.angkatan', 'desc') //terbaru

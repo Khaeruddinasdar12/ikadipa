@@ -44,6 +44,7 @@ Route::post('/myfeed', 'Api\FeedController@myfeed'); // melihat feed berdasarkan
 Route::get('/feed', 'Api\FeedController@index'); // index
 Route::post('/post-feed', 'Api\FeedController@store'); // post feed
 Route::post('/delete-feed', 'Api\FeedController@delete'); //delete feed
+Route::post('/detail-feed', 'Api\FeedController@detail'); //detail feed
 
 // API WIRAUSAHA
 Route::post('/post-wirausaha', 'Api\WirausahaController@store'); // post wirausaha

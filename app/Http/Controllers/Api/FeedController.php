@@ -82,6 +82,40 @@ class FeedController extends Controller
         ]);
     }
 
+    public function detail(Request $request) //detail feed
+    {
+        // return 'hha';
+        $validator = Validator::make($request->all(), [
+            'feed_id'  => 'required|numeric',
+        ]);
+
+        if($validator->fails()) {
+            $message = $validator->messages()->first();
+            return response()->json([
+                'status' => false,
+                'message' => $message
+            ]);
+        }
+
+        $data = DB::table('feeds')
+        ->select('feeds.id', 'feeds.status', 'feeds.gambar', 'users.name', DB::raw('DATE_FORMAT(feeds.created_at, "%H:%i %d %b %Y") as created_at'))
+        ->join('users', 'feeds.user_id', '=', 'users.id')
+        ->orderBy('feeds.created_at', 'desc')
+        ->where('feeds.id', $request->feed_id)
+        ->get();
+        if($data == '') {
+            return response()->json([
+                'status' => false,
+                'message' => 'tidak ada data'
+            ]);
+        }
+        return response()->json([
+            'status' => true,
+            'message'   => 'detail feed', 
+            'data'  => $data
+        ]);
+    }
+
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
