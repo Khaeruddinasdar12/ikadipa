@@ -240,7 +240,7 @@
 
           <li class="nav-header">Setting</li>
           <li class="nav-item">
-            <a href="{{route('notification.index')}}" class="nav-link {{ request()->is('admin') || request()->is('admin/notification') ? 'active' : '' }}">
+            <a href="{{route('notification.index')}}" class="nav-link {{ request()->is('admin/notification') ? 'active' : '' }}">
               <i class="nav-icon fas fa-paper-plane"></i>
               <p>
                 Send Notification
@@ -248,7 +248,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{route('admin.promo')}}" class="nav-link {{ request()->is('admin') || request()->is('admin/manage-promo') ? 'active' : '' }}">
+            <a href="{{route('admin.promo')}}" class="nav-link {{ request()->is('admin/manage-promo') ? 'active' : '' }}">
               <i class="nav-icon fas fa-book-reader"></i>
               <p>
                 Manage Promo
