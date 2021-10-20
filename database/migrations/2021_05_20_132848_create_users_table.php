@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('angkatan', 4);
             $table->string('email', 50)->unique();
             $table->timestamp('email_verified_at')->nullable();
+            $table->string('fcm_key')->nullable();
             $table->string('password');
             $table->string('alamat', 100);
             $table->bigInteger('alamat_id')->unsigned();
