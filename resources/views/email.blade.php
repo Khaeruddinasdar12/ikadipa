@@ -59,6 +59,12 @@
               max-width: 580px;
               padding: 10px; 
             }
+            .text-danger {
+              color: red;
+            }
+            .text-success {
+              color: green;
+            }
         /* -------------------------------------
             HEADER, FOOTER, MAIN
             ------------------------------------- */
@@ -312,7 +318,7 @@
                           <tr>
                             <td>
                               <center><h2>{{config('app.name')}} Notification</h2></center>
-                              <p>Hai {{$name}}</p>
+                              <p>Halo {{$name}}</p>
 
                               <table border="0" cellpadding="0" cellspacing="0">
                                 <tbody>
@@ -322,16 +328,18 @@
                                         <tbody>
                                           <tr>
                                             <td> <div class="container">
-
-                                             <center><p>Anda telah berkomentar ke bidang <b>{{$bidang}}</b></p>
+                                              <p>Kami dari Ikadipa (Ikatan Alumni Universitas Dipa Makassar), melalui email ini kami sampaikan bahwa: </p>
+                                             <center><p>Pendaftaran Anda pada {{config('app.name')}} <b class="text-{{$class}}">{{$status}}</b>,<b> {{$pesan}}.</b></p>
                                              </center>
+                                             <br>
+                                             <p>Ket : {{$keterangan}}</p>
 
                                              <hr>
-                                             <center><p>{{$pesan}}</p></center>
+                                             <center><p>Hubungi</p></center>
                                              <ul>
                                                <li>Email : ikadipa.id@gmail.com</li>
-                                               <li>Instagram : ikadipa</li>
-                                               <li>WhatsApp : 082344949555</li>
+                                               <li>Instagram : <a href="https://www.instagram.com/ikadipa/">ikadipa</a></li>
+                                               <li>WhatsApp : 082344949505</li>
                                              </ul>
                                              <hr>
 

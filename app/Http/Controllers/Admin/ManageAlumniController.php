@@ -50,9 +50,27 @@ class ManageAlumniController extends Controller
         ]);
 
         $data = User::findOrFail($id);
-        $data->is_active = 'tolak';
+        // $data->is_active = 'tolak';
         $data->komentar = $request->pesan;
         $data->save();
+
+        $email = $data->email;
+        $judul= config('app.name');
+        $data_send = array(
+            'name' => $data->name,
+            'status' => 'TIDAK DISETUJUI',
+            'pesan' => 'Silakan lakukan pendaftaran kembali pada aplikasi',
+            'keterangan' => $data->komentar,
+            'class' => 'danger',
+        );
+        Mail::send('email', $data_send, function($mail) use($email, $judul) {
+            $mail->to($email, 'no-reply')
+            ->subject($judul);
+            $mail->from('ikadipa.id@gmail.com', config('app.name'));        
+        });
+        if (Mail::failures()) {
+            return $arrayName = array('status' => 'error' , 'pesan' => 'Gagal menigirim email' );
+        }
 
         return redirect()->back()->with('success', 'Data ini telah ditolak');
     }
@@ -68,25 +86,23 @@ class ManageAlumniController extends Controller
         }
         $data->is_active = '1';
         $data->save();
-
-        // return $data;
         $email = $data->email;
         $judul= config('app.name');
-        // $nama = $data->nama;
         $data_send = array(
-                'name' => $data->name,
-                'pesan' => 'Tetap Semangat Kaka',
-                'bidang' => 'Teknik Informatika'
-            );
-        // return $data_send;
+            'name' => $data->name,
+            'status' => 'DISETUJUI',
+            'pesan' => 'Silakan Login Pada Aplikasi',
+            'keterangan' => 'Tidak ada',
+            'class' => 'success',
+        );
         Mail::send('email', $data_send, function($mail) use($email, $judul) {
-                $mail->to($email, 'no-reply')
-                ->subject($judul);
-                $mail->from('ikadipa.id@gmail.com', config('app.name'));        
-            });
-            if (Mail::failures()) {
-                return $arrayName = array('status' => 'error' , 'pesan' => 'Gagal menigirim email' );
-            }
+            $mail->to($email, 'no-reply')
+            ->subject($judul);
+            $mail->from('ikadipa.id@gmail.com', config('app.name'));        
+        });
+        if (Mail::failures()) {
+            return $arrayName = array('status' => 'error' , 'pesan' => 'Gagal menigirim email' );
+        }
 
         return $arrayName = array(
             'status' => 'success',

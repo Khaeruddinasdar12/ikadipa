@@ -12,8 +12,11 @@ Route::get('test', 'Admin\ManageAlumniController@test');
 Route::get('test-email', function(){
 	return view('email', [
 		'name' => 'Khaeruddin Asdar, S.Kom',
-		'bidang' => 'Teknik Informatika',
-		'pesan' => 'Tetap Semangat kaka'
+		'status' => 'DISETUJUI',
+		'pesan' => 'Silakan Login Pada Aplikasi',
+		'keterangan' => 'Tidak ada',
+		'class' => 'success',
+
 	]);
 });
 
