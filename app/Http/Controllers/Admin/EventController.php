@@ -17,9 +17,15 @@ class EventController extends Controller
 
     public function index()
     {
-        $data = Event::orderBy('created_at', 'desc')->paginate(2);
+        // $data = Event::orderBy('created_at', 'desc')->paginate(2);
 
-        return view('admin.event.index', ['data' => $data]);
+        return view('admin.event.index');
+    }
+    public function riwayat()
+    {
+        // $data = Event::orderBy('created_at', 'desc')->paginate(2);
+
+        return view('admin.event.riwayat');
     }
 
     public function create()
@@ -61,6 +67,7 @@ class EventController extends Controller
         $data->time_start= $request->time_start;
         $data->time_end  = $request->time_end;
         $data->lokasi    = $request->lokasi;
+        $data->status = '0';
 
 
         $gambar = $request->file('gambar');
@@ -129,9 +136,22 @@ class EventController extends Controller
         );
     }
 
+    public function ubahStatus($id)
+    {
+        $data = Event::findOrFail($id);
+        $data->status = '1';
+        $data->save();
+
+        return $arrayName = array(
+            'status' => 'success',
+            'pesan' => 'Event telah selesai.'
+        );
+    }
+
     public function tableEvent() // api table event untuk datatable
     {
         $data = Event::select('id', 'nama', 'deskripsi', 'date_start', 'date_end', 'time_start', 'time_end', 'lokasi', 'gambar')
+        ->where('status', '0')
         ->orderBy('date_start', 'asc')
         ->get();
 
@@ -154,6 +174,58 @@ class EventController extends Controller
 
             <a href='event/edit/".$data->id."' class='btn btn-success btn-xs' title='sunting event'>
             <i class='fa fa-edit'></i>
+            </a>
+
+            <button class='btn btn-warning btn-xs'
+            title='event selesai ?' 
+            href='event/status-event/".$data->id."'
+            onclick='status_event()'
+            id='status_id'
+            >
+            <i class='fa fa-check-circle'></i>
+            </button>
+
+            <button class='btn btn-danger btn-xs'
+            title='hapus event' 
+            href='event/delete-event/".$data->id."'
+            onclick='hapus_data()'
+            id='del_id'
+            >
+            <i class='fa fa-trash'></i>
+            </button>";
+        })
+        ->editColumn('date_start', function($data){
+            return $data->date_start." ".$data->time_start;
+        })
+        ->editColumn('date_end', function($data){
+            return $data->date_end." ".$data->time_end;
+        })
+        ->addIndexColumn() 
+        ->make(true);
+    }
+
+    public function tableRiwayatEvent() // api table riwayat event untuk datatable
+    {
+        $data = Event::select('id', 'nama', 'deskripsi', 'date_start', 'date_end', 'time_start', 'time_end', 'lokasi', 'gambar')
+        ->where('status', '1')
+        ->orderBy('date_start', 'asc')
+        ->get();
+
+        return Datatables::of($data)
+        ->addColumn('action', function ($data) {
+            return "
+            <a href='' class='btn btn-info btn-xs' 
+            title='detail event'
+            data-toggle='modal' 
+            data-target='#modal-detail-event'
+            data-id='".$data->id."'
+            data-nama='".$data->nama."'
+            data-waktu='".$data->date_start." ".$data->time_start." - ".$data->date_end." ".$data->time_end."'
+            data-lokasi='".$data->lokasi."'
+            data-deskripsi='".$data->deskripsi."'
+            data-gambar='".$data->gambar."'
+            >
+            <i class='fa fa-eye'></i>
             </a>
 
             <button class='btn btn-danger btn-xs'

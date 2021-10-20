@@ -7,11 +7,23 @@ use Illuminate\Http\Request;
 use App\Alumni;
 use App\Jurusan;
 use App\User;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\AlumniImport;
 class DataAlumniController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth:admin');
+    }
+    public function import(Request $request)
+    {
+        // $this->validate($request, [
+        //     'file' => 'required|in:csv,xls,xlsx'
+        // ]);
+
+// return $request->file('file');
+        Excel::import(new AlumniImport, $request->file('file')); //proses import 
+        return back()->with('success', 'Berhasil mengimport data');
     }
 
     public function index(Request $request)
@@ -98,11 +110,11 @@ class DataAlumniController extends Controller
     {
         $user = User::find($id);
         $cek = Alumni::with('jurusan:id,nama')
-            ->where('name', 'like', '%'.$user->name.'%')
-            ->where('angkatan', '=', $user->angkatan)
-            ->where('stb', '=', $user->stb)
-            ->where('jurusan_id', '=', $user->jurusan_id)
-            ->first();
+        ->where('name', 'like', '%'.$user->name.'%')
+        ->where('angkatan', '=', $user->angkatan)
+        ->where('stb', '=', $user->stb)
+        ->where('jurusan_id', '=', $user->jurusan_id)
+        ->first();
 
         if($cek != '') {
             return $arrayName = array(

@@ -1,7 +1,7 @@
 @extends('layouts.template')
 
 @section('title')
-List Event
+List Riwayat Event
 @endsection
 
 @section('css')
@@ -20,8 +20,7 @@ List Event
 
 			<div class="card">
 				<div class="card-header">
-					<h2 class="card-title"><i class="fa fa-calendar-week"></i> List Event <span class="badge badge-warning"><i class="fa fa-exclamation-circle"></i></span></h2>
-					<a href="{{route('event.create')}}" class="btn btn-primary btn-sm float-right"><i class="fa fa-plus"> Tambah Event</i></a>
+					<h2 class="card-title"><i class="fa fa-calendar-week"></i> List Riwayat Event <span class="badge badge-success"><i class="fa fa-check-circle"></i></span></h2>
 				</div>
 				<div class="card-body">
 					<div class="table-responsive-sm">
@@ -152,47 +151,6 @@ List Event
 			});
 		}
 
-		function status_event() { // menghapus jurusan
-			$(document).on('click', '#status_id', function(){
-				Swal.fire({
-					title: 'Event Telah Selesai ?',
-					text: "Anda tidak dapat mengembalikan data !",
-					type: 'info',
-					showCancelButton: true,
-					confirmButtonColor: '#3085d6',
-					cancelButtonColor: '#d33',
-					confirmButtonText: 'Ya, Lanjutkan!',
-					timer: 6500
-				}).then((result) => {
-					if (result.value) {
-						var me = $(this),
-						url = me.attr('href'),
-						token = $('meta[name="csrf-token"]').attr('content');
-						$.ajax({
-							url: url,
-							method: "POST",
-							data : {
-								'_method' : 'PUT',
-								'_token'  : token
-							},
-							success:function(data){
-								$('#tabel_event').DataTable().ajax.reload();
-								berhasil(data.status, data.pesan);
-							},
-							error: function(xhr, status, error){
-								var error = xhr.responseJSON; 
-								if ($.isEmptyObject(error) == false) {
-									$.each(error.errors, function(key, value) {
-										gagal(key, value);
-									});
-								}
-							} 
-						});
-					}
-				});
-			});
-		}
-
 		tabel = $(document).ready(function(){
 			$('#tabel_event').DataTable({
 				"processing": true,
@@ -203,7 +161,7 @@ List Event
         "order": [[ 0, 'desc' ]],
         "aLengthMenu": [[10, 25, 50],[ 10, 25, 50]],
         "ajax":  {
-                "url":  '{{route("table.event")}}', // URL file untuk proses select datanya
+                "url":  '{{route("table.riwayat.event")}}', // URL file untuk proses select datanya
                 "type": "GET"
               },
               "columns": [

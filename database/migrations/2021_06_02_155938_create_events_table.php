@@ -18,6 +18,7 @@ class CreateEventsTable extends Migration
             $table->string('nama', 100);
             $table->string('gambar')->nullable();
             $table->text('deskripsi');
+            $table->enum('status', ['0','1']);
             $table->bigInteger('admin_id')->unsigned();
             $table->date('date_start');
             $table->date('date_end');

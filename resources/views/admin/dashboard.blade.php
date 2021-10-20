@@ -29,9 +29,9 @@
 				<!-- small box -->
 				<div class="small-box bg-light">
 					<div class="inner">
-						<h3>5</h3>
+						<h3>{{$alumniMendaftar}}</h3>
 
-						<p>Pesanan</p>
+						<p>Alumni Mendaftar</p>
 					</div>
 					<div class="icon">
 						<i class="fas fa-cash-register"></i>
@@ -44,12 +44,12 @@
 				<!-- small box -->
 				<div class="small-box bg-success">
 					<div class="inner">
-						<h3>5</h3>
+						<h3>{{$alumniTerdaftar}}</h3>
 
-						<p>Jumlah Distribusi Aktif</p>
+						<p>Alumni Terdaftar</p>
 					</div>
 					<div class="icon">
-						<i class="fas fa-hourglass-half"></i>
+						<i class="fas fa-users"></i>
 					</div>
 					<a href="" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
 				</div>
@@ -61,10 +61,10 @@
 					<div class="inner">
 						<h3>5</h3>
 
-						<p>Manage Peternak</p>
+						<p>Event</p>
 					</div>
 					<div class="icon">
-						<i class="fas fa-user-tag"></i>
+						<i class="fas fa-calendar"></i>
 					</div>
 					<a href="" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
 				</div>
@@ -75,12 +75,12 @@
 				<!-- small box -->
 				<div class="small-box bg-dark">
 					<div class="inner">
-						<h3>5</h3>
+						<h3>{{$promo}}</h3>
 
-						<p>Manage Pengecer</p>
+						<p>Promo</p>
 					</div>
 					<div class="icon">
-						<i class="fas fa-users"></i>
+						<i class="fas fa-tags"></i>
 					</div>
 					<a href="" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
 				</div>

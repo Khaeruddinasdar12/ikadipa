@@ -54,7 +54,7 @@
 			<div class="col-12">
 				@if(session('success'))
 				<div class="alert alert-success alert-dismissible fade show" role="alert">
-					<strong>Berhasil Menambah Berita !</strong> <a href="{{route('berita.edit', session('success'))}}" class="alert-anchor">Sunting</a> atau <a href="{{route('berita.show', session('success'))}}" class="alert-anchor">Preview</a>
+					<strong>{{session('success')}} !</strong> <a href="{{route('berita.edit', session('success'))}}" class="alert-anchor">Sunting</a> atau <a href="{{route('berita.show', session('success'))}}" class="alert-anchor">Preview</a>
 					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>

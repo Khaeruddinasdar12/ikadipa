@@ -30,6 +30,36 @@ List Alumni
 <section class="content">
 	<div class="row">
 		<div class="col-12">
+			@if(session('success'))
+			<div class="alert alert-success alert-dismissible fade show" role="alert">
+				<strong>Berhasil Menambah Berita !</strong> <a href="{{route('berita.edit', session('success'))}}" class="alert-anchor">Sunting</a> atau <a href="{{route('berita.show', session('success'))}}" class="alert-anchor">Preview</a>
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			@elseif(session('error'))
+			<div class="alert alert-danger">
+				{{session('error')}}
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			@endif
+			@if (count($errors) > 0)
+			<div class="alert alert-danger">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<strong>Whoops!</strong>
+				<ul>
+					@foreach ($errors->all() as $error)
+					<li>{{ $error }}</li>
+					@endforeach
+				</ul>
+
+			</div>
+			@endif
+
 			<div class="card">
 				<div class="card-header">
 					<h2 class="card-title"><i class="fa fa-newspaper"></i> Data Alumni</h2>
@@ -50,6 +80,9 @@ List Alumni
 				</div>
 				
 				<div class="card-body">
+					<button type="button" class="btn btn-success float-right" data-toggle="modal" data-target="#modal-import">
+						<i class="fas fa-file-excel"></i> Import Alumni
+					</button>
 					<button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-tambah-alumni">
 						<i class="fas fa-plus"></i> Tambah Data
 					</button>
@@ -77,66 +110,92 @@ List Alumni
 									<td>{{$dt->jurusan->nama}}</td>
 									<td><a href="{{route('edit.alumni', ['id' => $dt->id])}}" class="btn btn-outline-secondary btn-sm"><i class="fa fa-edit"></i></a>
 										<button href="{{route('delete.alumni', ['id' => $dt->id])}}" onclick="hapus_data()" id="del_id" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i></button></td>
-								</tr>
+									</tr>
+									@endforeach
+								</tbody>
+							</table>
+							{{$data->links()}}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Modal -->
+	<div class="modal fade" id="modal-import" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Import Data Alumni</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<form action="{{route('import.alumni')}}" method="post" enctype="multipart/form-data">
+					@csrf
+					<div class="modal-body">
+						<div class="form-group">
+							<label for="exampleInputEmail1">Data Alumni (Excel)</label>
+							<input type="file" class="form-control" name="file" required>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+						<button type="submit" class="btn btn-primary">Import</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="modal-tambah-alumni" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Tambah Data Alumni</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<form action="" method="post" id="add-alumni">
+					@csrf
+					<div class="modal-body">
+						<div class="form-group">
+							<label for="exampleInputEmail1">STB</label>
+							<input type="text" class="form-control" placeholder="Stambuk" name="stb">
+						</div>
+						<div class="form-group">
+							<label for="exampleInputEmail1">Nama</label>
+							<input type="text" class="form-control" placeholder="Nama Lengkap Tanpa Gelar" name="nama">
+						</div>
+						<div class="form-group">
+							<label for="exampleInputEmail1">Angkatan</label>
+							<input type="text" class="form-control" placeholder="Angkatan (4 angka)" name="angkatan">
+						</div>
+						<div class="form-group">
+							<label>Jurusan</label>
+							<select class="form-control" name="jurusan">
+								@foreach($jurusan as $jr)
+								<option value="{{$jr->id}}">{{$jr->nama}}</option>
 								@endforeach
-							</tbody>
-						</table>
-						{{$data->links()}}
+							</select>
+						</div>
 					</div>
-				</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+						<button type="submit" class="btn btn-primary">Tambah</button>
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>
-</section>
+	@endsection
 
-<!-- Modal -->
-<div class="modal fade" id="modal-tambah-alumni" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Tambah Data ALumni</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<form action="" method="post" id="add-alumni">
-				@csrf
-				<div class="modal-body">
-					<div class="form-group">
-						<label for="exampleInputEmail1">STB</label>
-						<input type="text" class="form-control" placeholder="Stambuk" name="stb">
-					</div>
-					<div class="form-group">
-						<label for="exampleInputEmail1">Nama</label>
-						<input type="text" class="form-control" placeholder="Nama Lengkap Tanpa Gelar" name="nama">
-					</div>
-					<div class="form-group">
-						<label for="exampleInputEmail1">Angkatan</label>
-						<input type="text" class="form-control" placeholder="Angkatan (4 angka)" name="angkatan">
-					</div>
-					<div class="form-group">
-						<label>Jurusan</label>
-						<select class="form-control" name="jurusan">
-							@foreach($jurusan as $jr)
-							<option value="{{$jr->id}}">{{$jr->nama}}</option>
-							@endforeach
-						</select>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-					<button type="submit" class="btn btn-primary">Tambah</button>
-				</div>
-			</form>
-		</div>
-	</div>
-</div>
-@endsection
-
-@section('js')
-<script type="text/javascript" src="{{asset('datatables.min.js')}}"></script>
-<script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
-<script type="text/javascript">
+	@section('js')
+	<script type="text/javascript" src="{{asset('datatables.min.js')}}"></script>
+	<script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
+	<script type="text/javascript">
 $('#add-alumni').submit(function(e){ // tambah alumni
 	e.preventDefault();
 

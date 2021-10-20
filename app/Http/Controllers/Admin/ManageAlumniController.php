@@ -70,23 +70,23 @@ class ManageAlumniController extends Controller
         $data->save();
 
         // return $data;
-        // $email = 'mulayfor@gmail.com';
-        // $judul= config('app.name');
-        // // $nama = $data->nama;
-        // $data_send = array(
-        //         'name' => 'Khaeruddin Asdar, S.Kom',
-        //         'pesan' => 'Tetap Semangat Kaka',
-        //         'bidang' => 'Teknik Informatika'
-        //     );
-        // // return $data_send;
-        // Mail::send('email', $data_send, function($mail) use($email, $judul) {
-        //         $mail->to($email, 'no-reply')
-        //         ->subject($judul);
-        //         $mail->from('ikadipa.id@gmail.com', config('app.name'));        
-        //     });
-        //     if (Mail::failures()) {
-        //         return $arrayName = array('status' => 'error' , 'pesan' => 'Gagal menigirim email' );
-        //     }
+        $email = $data->email;
+        $judul= config('app.name');
+        // $nama = $data->nama;
+        $data_send = array(
+                'name' => $data->name,
+                'pesan' => 'Tetap Semangat Kaka',
+                'bidang' => 'Teknik Informatika'
+            );
+        // return $data_send;
+        Mail::send('email', $data_send, function($mail) use($email, $judul) {
+                $mail->to($email, 'no-reply')
+                ->subject($judul);
+                $mail->from('ikadipa.id@gmail.com', config('app.name'));        
+            });
+            if (Mail::failures()) {
+                return $arrayName = array('status' => 'error' , 'pesan' => 'Gagal menigirim email' );
+            }
 
         return $arrayName = array(
             'status' => 'success',

@@ -32,6 +32,7 @@ Route::prefix('admin')->group(function() {
 
 	// DATA ALUMNI
 	Route::get('data-alumni', 'Admin\DataAlumniController@index')->name('data.alumni');
+	Route::post('import-alumni', 'Admin\DataAlumniController@import')->name('import.alumni');
 	Route::post('data-alumni', 'Admin\DataAlumniController@store')->name('data.alumni');
 	Route::get('data-alumni/{id}', 'Admin\DataAlumniController@edit')->name('edit.alumni');
 	Route::put('data-alumni/{id}', 'Admin\DataAlumniController@update')->name('update.alumni');
@@ -83,13 +84,16 @@ Route::prefix('admin')->group(function() {
 	// EVENT
 	Route::prefix('event')->group(function() {
 		Route::get('/', 'Admin\EventController@index')->name('event.index');
+		Route::get('/riwayat', 'Admin\EventController@riwayat')->name('event.riwayat');
 		Route::get('/create', 'Admin\EventController@create')->name('event.create');
 		Route::post('/', 'Admin\EventController@store')->name('event.post');
 		Route::get('edit/{id}', 'Admin\EventController@edit')->name('event.edit');
 		Route::put('edit/{id}', 'Admin\EventController@update')->name('event.update');
+		Route::put('status-event/{id}', 'Admin\EventController@ubahStatus');
 		Route::delete('delete-event/{id}', 'Admin\EventController@delete')->name('event.delete');
 		
 		Route::get('/table-event', 'Admin\EventController@tableEvent')->name('table.event');
+		Route::get('/table-riwayat-event', 'Admin\EventController@tableRiwayatEvent')->name('table.riwayat.event');
 	});
 	// END EVENT
 
@@ -115,12 +119,18 @@ Route::prefix('admin')->group(function() {
 	});
 	// END BERITA
 
-	// DASHBOARD
+	// PROMO
 	Route::get('/manage-promo', 'Admin\PromoController@index')->name('admin.promo');
 	Route::post('/manage-promo', 'Admin\PromoController@store')->name('admin.promo');
 	Route::get('/table-promo', 'Admin\PromoController@tablePromo')->name('table.promo');
-	// END DASHBOARD
+	// END PROMO
 
+	// NOTIFICATION
+	Route::get('/', 'Admin\DashboardController@index');
+	Route::get('/notification', 'Admin\NotificationController@index')->name('notification.index');
+
+	Route::get('/table-notification', 'Admin\NotificationController@tableNotification')->name('table.notification');
+	// END NOTIFICATION
 
 	// SETTING
 	Route::get('/setting', 'Admin\SettingController@index')->name('admin.setting');

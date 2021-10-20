@@ -144,6 +144,12 @@
                   <p>List Event</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="{{route('event.riwayat')}}" class="nav-link  {{ request()->is('admin/event/riwayat') ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Riwayat Event</p>
+                </a>
+              </li>
             </ul>
           </li>
 
@@ -233,6 +239,14 @@
           </li>
 
           <li class="nav-header">Setting</li>
+          <li class="nav-item">
+            <a href="{{route('notification.index')}}" class="nav-link {{ request()->is('admin') || request()->is('admin/notification') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-paper-plane"></i>
+              <p>
+                Send Notification
+              </p>
+            </a>
+          </li>
           <li class="nav-item">
             <a href="{{route('admin.promo')}}" class="nav-link {{ request()->is('admin') || request()->is('admin/manage-promo') ? 'active' : '' }}">
               <i class="nav-icon fas fa-book-reader"></i>
