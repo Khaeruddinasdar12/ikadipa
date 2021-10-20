@@ -4,7 +4,94 @@
     <meta name="viewport" content="width=device-width" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>{{config('app.name')}}</title>
-    <style>
+         </head>
+        <body class="">
+          <table border="0" cellpadding="0" cellspacing="0" class="body">
+            <tr>
+              <td>&nbsp;</td>
+              <td class="container">
+                <div class="content">
+
+                  <!-- START CENTERED WHITE CONTAINER -->
+                  <span class="preheader">Email Untuk Kamu !.</span>
+                  <table class="main">
+
+                    <!-- START MAIN CONTENT AREA -->
+                    <tr>
+                      <td class="wrapper">
+                        <table border="0" cellpadding="0" cellspacing="0">
+                          <tr>
+                            <td>
+                              <center><h2>{{config('app.name')}} Notification</h2></center>
+                              <p>Halo {{$name}}</p>
+
+                              <table border="0" cellpadding="0" cellspacing="0">
+                                <tbody>
+                                  <tr>
+                                    <td align="left">
+                                      <table border="0" cellpadding="0" cellspacing="0">
+                                        <tbody>
+                                          <tr>
+                                            <td> <div class="container">
+                                              <p>Kami dari Ikadipa (Ikatan Alumni Universitas Dipa Makassar), melalui email ini kami sampaikan bahwa: </p>
+                                             <center><p>Pendaftaran Anda pada {{config('app.name')}} <b class="text-{{$class}}">{{$status}}</b>,<b> {{$pesan}}.</b></p>
+                                             </center>
+                                             <br>
+                                             <p>Ket : {{$keterangan}}</p>
+
+                                             <hr>
+                                             <center><p>Hubungi</p></center>
+                                             <ul>
+                                               <li>Email : ikadipa.id@gmail.com</li>
+                                               <li>Instagram : <a href="https://www.instagram.com/ikadipa/">ikadipa</a></li>
+                                               <li>WhatsApp : 082344949505</li>
+                                             </ul>
+                                             <hr>
+
+                                             <center><p>Demikian informasi ini<br> Terima kasih !</p></center>
+                                           </div>
+                                         </td>
+                                       </tr>
+                                     </tbody>
+                                   </table>
+                                 </td>
+                               </tr>
+                             </tbody>
+                           </table>
+                         </td>
+                       </tr>
+                     </table>
+                   </td>
+                 </tr>
+
+                 <!-- END MAIN CONTENT AREA -->
+               </table>
+
+               <!-- START FOOTER -->
+               <div class="footer">
+                <table border="0" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td class="content-block">
+                      <span class="apple-link">{{config('app.name')}}</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="content-block powered-by">
+                      Powered by {{config('app.name')}}.
+                    </td>
+                  </tr>
+                </table>
+              </div>
+              <!-- END FOOTER -->
+
+              <!-- END CENTERED WHITE CONTAINER -->
+            </div>
+          </td>
+          <td>&nbsp;</td>
+        </tr>
+      </table>
+    </body>
+       <style>
         /* -------------------------------------
             GLOBAL RESETS
             ------------------------------------- */
@@ -299,91 +386,4 @@
             }
 
           </style>
-        </head>
-        <body class="">
-          <table border="0" cellpadding="0" cellspacing="0" class="body">
-            <tr>
-              <td>&nbsp;</td>
-              <td class="container">
-                <div class="content">
-
-                  <!-- START CENTERED WHITE CONTAINER -->
-                  <span class="preheader">Email Untuk Kamu !.</span>
-                  <table class="main">
-
-                    <!-- START MAIN CONTENT AREA -->
-                    <tr>
-                      <td class="wrapper">
-                        <table border="0" cellpadding="0" cellspacing="0">
-                          <tr>
-                            <td>
-                              <center><h2>{{config('app.name')}} Notification</h2></center>
-                              <p>Halo {{$name}}</p>
-
-                              <table border="0" cellpadding="0" cellspacing="0">
-                                <tbody>
-                                  <tr>
-                                    <td align="left">
-                                      <table border="0" cellpadding="0" cellspacing="0">
-                                        <tbody>
-                                          <tr>
-                                            <td> <div class="container">
-                                              <p>Kami dari Ikadipa (Ikatan Alumni Universitas Dipa Makassar), melalui email ini kami sampaikan bahwa: </p>
-                                             <center><p>Pendaftaran Anda pada {{config('app.name')}} <b class="text-{{$class}}">{{$status}}</b>,<b> {{$pesan}}.</b></p>
-                                             </center>
-                                             <br>
-                                             <p>Ket : {{$keterangan}}</p>
-
-                                             <hr>
-                                             <center><p>Hubungi</p></center>
-                                             <ul>
-                                               <li>Email : ikadipa.id@gmail.com</li>
-                                               <li>Instagram : <a href="https://www.instagram.com/ikadipa/">ikadipa</a></li>
-                                               <li>WhatsApp : 082344949505</li>
-                                             </ul>
-                                             <hr>
-
-                                             <center><p>Demikian informasi ini<br> Terima kasih !</p></center>
-                                           </div>
-                                         </td>
-                                       </tr>
-                                     </tbody>
-                                   </table>
-                                 </td>
-                               </tr>
-                             </tbody>
-                           </table>
-                         </td>
-                       </tr>
-                     </table>
-                   </td>
-                 </tr>
-
-                 <!-- END MAIN CONTENT AREA -->
-               </table>
-
-               <!-- START FOOTER -->
-               <div class="footer">
-                <table border="0" cellpadding="0" cellspacing="0">
-                  <tr>
-                    <td class="content-block">
-                      <span class="apple-link">{{config('app.name')}}</span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="content-block powered-by">
-                      Powered by {{config('app.name')}}.
-                    </td>
-                  </tr>
-                </table>
-              </div>
-              <!-- END FOOTER -->
-
-              <!-- END CENTERED WHITE CONTAINER -->
-            </div>
-          </td>
-          <td>&nbsp;</td>
-        </tr>
-      </table>
-    </body>
     </html>

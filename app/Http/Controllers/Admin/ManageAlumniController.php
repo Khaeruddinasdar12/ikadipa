@@ -55,7 +55,7 @@ class ManageAlumniController extends Controller
         $data->save();
 
         $email = $data->email;
-        $judul= config('app.name');
+        $judul= "Notifikasi penolakan ". config('app.name');
         $data_send = array(
             'name' => $data->name,
             'status' => 'TIDAK DISETUJUI',
@@ -87,7 +87,7 @@ class ManageAlumniController extends Controller
         $data->is_active = '1';
         $data->save();
         $email = $data->email;
-        $judul= config('app.name');
+        $judul= "Notifikasi persetujuan ".config('app.name');
         $data_send = array(
             'name' => $data->name,
             'status' => 'DISETUJUI',
