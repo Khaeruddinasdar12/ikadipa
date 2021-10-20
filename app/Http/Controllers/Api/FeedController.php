@@ -13,7 +13,7 @@ class FeedController extends Controller
     public function index()
     {
         $data = DB::table('feeds')
-        ->select('feeds.id', 'feeds.status', 'feeds.gambar', 'users.name', DB::raw('DATE_FORMAT(feeds.created_at, "%H:%i %d %b %Y") as created_at'))
+        ->select('feeds.id', 'feeds.status', 'feeds.gambar', 'users.id as user_id', 'users.name', DB::raw('DATE_FORMAT(feeds.created_at, "%H:%i %d %b %Y") as created_at'))
         ->join('users', 'feeds.user_id', '=', 'users.id')
         ->orderBy('feeds.created_at', 'desc')
         ->paginate(15);

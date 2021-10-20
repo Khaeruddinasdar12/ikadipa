@@ -36,7 +36,7 @@
 					<div class="icon">
 						<i class="fas fa-cash-register"></i>
 					</div>
-					<a href="" class="small-box-footer" >More info <i class="fas fa-arrow-circle-right"></i></a>
+					<a href="{{route('alumni.mendaftar')}}" class="small-box-footer" >More info <i class="fas fa-arrow-circle-right"></i></a>
 				</div>
 			</div>
 			<!-- ./col -->
@@ -51,7 +51,7 @@
 					<div class="icon">
 						<i class="fas fa-users"></i>
 					</div>
-					<a href="" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+					<a href="{{route('alumni.alumni')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
 				</div>
 			</div>
 			<!-- ./col -->
@@ -59,14 +59,14 @@
 				<!-- small box -->
 				<div class="small-box bg-warning">
 					<div class="inner">
-						<h3>5</h3>
+						<h3>{{$event}}</h3>
 
 						<p>Event</p>
 					</div>
 					<div class="icon">
 						<i class="fas fa-calendar"></i>
 					</div>
-					<a href="" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+					<a href="{{route('event.index')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
 				</div>
 			</div>
 			<!-- ./col -->
@@ -82,7 +82,7 @@
 					<div class="icon">
 						<i class="fas fa-tags"></i>
 					</div>
-					<a href="" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+					<a href="{{ route('admin.promo') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
 				</div>
 			</div>
 			<!-- ./col -->
