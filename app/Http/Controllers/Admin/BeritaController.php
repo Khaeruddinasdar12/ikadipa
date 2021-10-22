@@ -7,6 +7,7 @@ use DataTables;
 use App\Berita;
 use Auth;
 use DB;
+use App\Fcmtoken;
 class BeritaController extends Controller
 {
     public function __construct()
@@ -79,6 +80,30 @@ class BeritaController extends Controller
 
         $data->admin_id = Auth::guard('admin')->user()->id;
         $data->save();
+
+        $firebaseToken = Fcmtoken::pluck('token')->all();
+        $fcm_key = config('app.fcm_key');
+        $data = [
+            "registration_ids" => $firebaseToken,
+            "notification" => [
+                "title" => "Berita! ".$request->judul,
+                "body" => "Lihat segera di aplikasi",  
+            ]
+        ];
+        $dataString = json_encode($data);
+        $headers = [
+            'Authorization: key=' . $fcm_key,
+            'Content-Type: application/json',
+        ];
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
+               
+        $response = curl_exec($ch);
 
         return redirect()->back()->with('success', $data->id);
     }

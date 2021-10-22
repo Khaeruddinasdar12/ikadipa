@@ -34,7 +34,7 @@ class NotificationController extends Controller
         $data = [
             "registration_ids" => $firebaseToken,
             "notification" => [
-                "title" => $request->judul,
+                "title" => "Pemberitahuan! ".$request->judul,
                 "body" => $request->deskripsi,  
             ]
         ];
