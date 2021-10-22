@@ -2,6 +2,7 @@
 
 return [
     'raja_ongkir_key' => env('RAJA_ONGKIR_KEY'),
+    'fcm_key' => env('FCM_KEY'),
     'name' => env('APP_NAME', 'Laravel'),
     'env' => env('APP_ENV', 'production'),
     'debug' => env('APP_DEBUG', false),

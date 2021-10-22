@@ -39,20 +39,29 @@ class PromoController extends Controller
         );
     }
 
+    public function delete($id)
+    {
+        $data = Promo::find($id);
+        if ($data->gambar && file_exists(storage_path('app/public/' . $data->gambar))) {
+            \Storage::delete('public/' . $data->gambar);
+        }
+        $data->delete();
+        return $arrayName = array(
+            'status' => 'success',
+            'pesan' => 'Berhasil Menghapus Promo.'
+        );
+    }
+
     public function tablePromo() // api table promo untuk datatable
-     {
+    {
         $data = Promo::get();
 
         return Datatables::of($data)
         ->addColumn('action', function ($data) {
             return "
-            <a href='donasi/promo/".$data->id."' title='edit promo' class='btn btn-success btn-xs'>
-            <i class='fa fa-edit'></i>
-            </a>
-
             <button class='btn btn-danger btn-xs'
-            title='Hapus Donasi' 
-            href='donasi/delete-promo/".$data->id."'
+            title='Hapus Promo' 
+            href='delete-promo/".$data->id."'
             onclick='hapus_data()'
             id='del_id'
             >

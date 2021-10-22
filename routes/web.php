@@ -125,12 +125,14 @@ Route::prefix('admin')->group(function() {
 	// PROMO
 	Route::get('/manage-promo', 'Admin\PromoController@index')->name('admin.promo');
 	Route::post('/manage-promo', 'Admin\PromoController@store')->name('admin.promo');
+	Route::delete('/delete-promo/{id}', 'Admin\PromoController@delete')->name('delete.promo');
 	Route::get('/table-promo', 'Admin\PromoController@tablePromo')->name('table.promo');
 	// END PROMO
 
 	// NOTIFICATION
-	Route::get('/', 'Admin\DashboardController@index');
+	Route::get('/test-notif', 'Admin\NotificationController@sendNotification');
 	Route::get('/notification', 'Admin\NotificationController@index')->name('notification.index');
+	Route::post('/notification', 'Admin\NotificationController@store')->name('notification.store');
 
 	Route::get('/table-notification', 'Admin\NotificationController@tableNotification')->name('table.notification');
 	// END NOTIFICATION

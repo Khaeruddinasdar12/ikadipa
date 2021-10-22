@@ -55,8 +55,8 @@ Notification
 					<h2 class="card-title"><i class="fa fa-newspaper"></i> Riwayat Pengiriman Notifikasi</h2>
 				</div>
 				<div class="card-body">
-					<button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-tambah-alumni">
-						<i class="fas fa-plus"></i> Tambah Data
+					<button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-tambah-notifikasi">
+						<i class="fas fa-plus"></i> Kirim Notifikasi
 					</button>
 					<br>
 					<br>
@@ -80,25 +80,25 @@ Notification
 	</section>
 
 	<!-- Modal -->
-	<div class="modal fade" id="modal-tambah-alumni" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal fade" id="modal-tambah-notifikasi" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Tambah Data Alumni</h5>
+					<h5 class="modal-title" id="exampleModalLabel">Kirimkan notifikasi ke seluruh pengguna</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				<form action="" method="post" id="add-alumni">
+				<form action="" method="post" id="add-notification">
 					@csrf
 					<div class="modal-body">
 						<div class="form-group">
 							<label for="exampleInputEmail1">Judul</label>
-							<input type="text" class="form-control" name="stb">
+							<input type="text" class="form-control" name="judul">
 						</div>
 						<div class="form-group">
 							<label for="exampleInputEmail1">Deskripsi</label>
-							<input type="text" class="form-control" name="nama">
+							<input type="text" class="form-control" name="deskripsi">
 						</div>
 					</div>
 					<div class="modal-footer">
@@ -115,11 +115,11 @@ Notification
 	<script type="text/javascript" src="{{asset('datatables.min.js')}}"></script>
 	<script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
 	<script type="text/javascript">
-$('#add-alumni').submit(function(e){ // tambah alumni
+$('#add-notification').submit(function(e){ // tambah alumni
 	e.preventDefault();
 
 	var request = new FormData(this);
-	var endpoint= '{{route("data.alumni")}}';
+	var endpoint= '{{route("notification.store")}}';
 	$.ajax({
 		url: endpoint,
 		method: "POST",
@@ -128,8 +128,10 @@ $('#add-alumni').submit(function(e){ // tambah alumni
 		cache: false,
 		processData: false,
 		success:function(data){
-			$('#add-alumni')[0].reset();
-			berhasil(data.status, data.pesan);
+			$('#add-notification')[0].reset();
+			$('#modal-tambah-notifikasi').modal('hide');
+			$('#tabel_notification').DataTable().ajax.reload();
+			success(data.status, data.pesan);
 		},
 		error: function(xhr, status, error){
 			var error = xhr.responseJSON; 
@@ -171,6 +173,15 @@ function berhasil(status, pesan) {
 		button: "Ok"
 	}).then(function(){ 
 		location.reload();
+	})
+}
+
+function success(status, pesan) {
+	Swal.fire({
+		type: status,
+		title: pesan,
+		showConfirmButton: true,
+		button: "Ok"
 	})
 }
 

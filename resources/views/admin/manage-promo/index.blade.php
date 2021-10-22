@@ -82,16 +82,66 @@ Manage Promo
 	</div>
 </div>
 <!-- End Modal Tambah Promo -->
+
+<!-- Modal Edit Promo -->
+<div class="modal fade bd-example-modal" id="modal-edit-promo" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<form method="post" id="add-promo">
+			@csrf
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Edit Promo </h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label>Nama Promo</label>
+						<input type="text" class="form-control" name="nama" id="nama">
+					</div>
+					<div class="form-group">
+						<label>Url</label>
+						<input type="text" class="form-control" name="url" id="url">
+					</div>
+					<div class="form-group">
+						<label for="exampleFormControlFile1">Gambar</label>
+						<input type="file" class="form-control-file" id="exampleFormControlFile1" onchange="tampilkanPreview(this,'preview')" accept="image/*" name="gambar" required>
+					</div>
+					<div class="form-group">
+						<img id="preview" src="" width="90px" height="90px">
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Cancel</button>
+					<button type="submit" class="btn btn-primary btn-sm">Update</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+<!-- End Modal Edit Promo -->
 @endsection
 
 @section('js')
 <script type="text/javascript" src="{{asset('datatables.min.js')}}"></script>
 <script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
 <script type="text/javascript">
+	
+	$('#modal-edit-promo').on('show.bs.modal', function (event) {
+		var button = $(event.relatedTarget) 
+		var id = button.data('id') 
+		var nama = button.data('nama') 
+		var kode = button.data('kode') 
+
+		var modal = $(this)
+		modal.find('.modal-body #edit-jurusan-id').val(id)
+		modal.find('.modal-body #nama-jurusan').val(nama)
+		modal.find('.modal-body #kode-jurusan').val(kode)
+	})
 
 		$('#add-promo').submit(function(e){ // tambah promo
 			e.preventDefault();
-
 			var request = new FormData(this);
 			var endpoint= '{{route("admin.promo")}}';
 			$.ajax({
@@ -142,7 +192,7 @@ Manage Promo
 								'_token'  : token
 							},
 							success:function(data){
-								$('#tabel_berita').DataTable().ajax.reload();
+								$('#tabel_promo').DataTable().ajax.reload();
 								berhasil(data.status, data.pesan);
 							},
 							error: function(xhr, status, error){
