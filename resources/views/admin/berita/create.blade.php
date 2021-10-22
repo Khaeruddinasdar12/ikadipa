@@ -3,7 +3,7 @@
 @section('title') Tambah Berita @endsection
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('admins/plugins/summernote/summernote-bs4.css') }}">daterangepicker.css')}}"> -->
+<link rel="stylesheet" href="{{ asset('admins/plugins/summernote/summernote-bs4.css') }}">
 <style type="text/css">
 .alert-warning{
 	color: #856404;
@@ -54,7 +54,7 @@
 			<div class="col-12">
 				@if(session('success'))
 				<div class="alert alert-success alert-dismissible fade show" role="alert">
-					<strong>{{session('success')}} !</strong> <a href="{{route('berita.edit', session('success'))}}" class="alert-anchor">Sunting</a> atau <a href="{{route('berita.show', session('success'))}}" class="alert-anchor">Preview</a>
+					<strong>Berhasil menambah berita !</strong> <a href="{{route('berita.edit', session('success'))}}" class="alert-anchor">Sunting</a> atau <a href="{{route('berita.show', session('success'))}}" class="alert-anchor">Preview</a>
 					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>

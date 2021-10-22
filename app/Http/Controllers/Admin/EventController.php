@@ -60,25 +60,25 @@ class EventController extends Controller
         if ( strtotime($request->date_start) > strtotime($request->date_end) ) {
             return redirect()->back()->with('error', 'Tanggal mulai tidak boleh lebih dari tanggal akhir');
         }
-        $data = new Event;
-        $data->nama      = $request->nama;
-        $data->deskripsi = $request->deskripsi;
-        $data->date_start= $request->date_start;
-        $data->date_end  = $request->date_end;
-        $data->time_start= $request->time_start;
-        $data->time_end  = $request->time_end;
-        $data->lokasi    = $request->lokasi;
-        $data->status = '0';
+        $todb = new Event;
+        $todb->nama      = $request->nama;
+        $todb->deskripsi = $request->deskripsi;
+        $todb->date_start= $request->date_start;
+        $todb->date_end  = $request->date_end;
+        $todb->time_start= $request->time_start;
+        $todb->time_end  = $request->time_end;
+        $todb->lokasi    = $request->lokasi;
+        $todb->status = '0';
 
 
         $gambar = $request->file('gambar');
         if ($gambar) {
             $gambar_path = $gambar->store('gambar', 'public');
-            $data->gambar = $gambar_path;
+            $todb->gambar = $gambar_path;
         }
 
-        $data->admin_id = Auth::guard('admin')->user()->id;
-        $data->save();
+        $todb->admin_id = Auth::guard('admin')->user()->id;
+        $todb->save();
 
         $firebaseToken = Fcmtoken::pluck('token')->all();
         $fcm_key = config('app.fcm_key');
@@ -104,7 +104,7 @@ class EventController extends Controller
                
         $response = curl_exec($ch);
 
-        return redirect()->back()->with('success', $data->id);
+        return redirect()->back()->with('success', $todb->id);
     }
 
     public function update(Request $request, $id)

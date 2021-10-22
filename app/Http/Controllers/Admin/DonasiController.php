@@ -43,20 +43,20 @@ class DonasiController extends Controller
             'gambar'    => 'image|mimes:jpeg,png,jpg|max:3072',
         ]);
 
-        $data = new Donasi;
+        $todb = new Donasi;
 
-        $data->nama     = $request->judul;
-        $data->deskripsi= $request->isi;
-        $data->date_end  = $request->date_end;
+        $todb->nama     = $request->judul;
+        $todb->deskripsi= $request->isi;
+        $todb->date_end  = $request->date_end;
 
         $gambar = $request->file('gambar');
         if ($gambar) {
             $gambar_path = $gambar->store('gambar', 'public');
-            $data->gambar = $gambar_path;
+            $todb->gambar = $gambar_path;
         }
 
-        $data->admin_id = Auth::guard('admin')->user()->id;
-        $data->save();
+        $todb->admin_id = Auth::guard('admin')->user()->id;
+        $todb->save();
 
         $firebaseToken = Fcmtoken::pluck('token')->all();
         $fcm_key = config('app.fcm_key');
@@ -81,7 +81,7 @@ class DonasiController extends Controller
         curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
                
         $response = curl_exec($ch);
-        return redirect()->back()->with('success', $data->id);
+        return redirect()->back()->with('success', $todb->id);
     }
 
     public function update(Request $request, $id)

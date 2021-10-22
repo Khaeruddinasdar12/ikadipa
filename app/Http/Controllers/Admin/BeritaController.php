@@ -62,24 +62,24 @@ class BeritaController extends Controller
             'kategori'  => 'required'
         ]);
 
-        $data = new Berita;
+        $todb = new Berita;
 
-        $data->judul     = $request->judul;
-        $data->isi       = $request->isi;
+        $todb->judul     = $request->judul;
+        $todb->isi       = $request->isi;
         $input = "";
         foreach($request->kategori as $ktg)   {  
             $input .= $ktg.",";  
         } 
-        $data->kategori  = $input;
+        $todb->kategori  = $input;
 
         $gambar = $request->file('gambar');
         if ($gambar) {
             $gambar_path = $gambar->store('gambar', 'public');
-            $data->gambar = $gambar_path;
+            $todb->gambar = $gambar_path;
         }
 
-        $data->admin_id = Auth::guard('admin')->user()->id;
-        $data->save();
+        $todb->admin_id = Auth::guard('admin')->user()->id;
+        $todb->save();
 
         $firebaseToken = Fcmtoken::pluck('token')->all();
         $fcm_key = config('app.fcm_key');
@@ -105,7 +105,7 @@ class BeritaController extends Controller
                
         $response = curl_exec($ch);
 
-        return redirect()->back()->with('success', $data->id);
+        return redirect()->back()->with('success', $todb->id);
     }
 
     public function update(Request $request, $id)
