@@ -13,7 +13,7 @@ class FeedController extends Controller
     public function index()
     {
         $data = DB::table('feeds')
-        ->select('feeds.id', 'feeds.status', 'feeds.gambar', 'users.id as user_id', 'users.name', DB::raw('DATE_FORMAT(feeds.created_at, "%H:%i %d %b %Y") as created_at'))
+        ->select('feeds.id', 'feeds.post_id', 'feeds.publisher', 'feeds.status', 'feeds.gambar', 'users.id as user_id', 'users.name', DB::raw('DATE_FORMAT(feeds.created_at, "%H:%i %d %b %Y") as created_at'))
         ->join('users', 'feeds.user_id', '=', 'users.id')
         ->orderBy('feeds.created_at', 'desc')
         ->paginate(15);
@@ -57,7 +57,7 @@ class FeedController extends Controller
         }
 
         $data = DB::table('feeds')
-        ->select('feeds.id', 'feeds.status', 'feeds.gambar', 'users.id as user_id', 'users.name', DB::raw('DATE_FORMAT(feeds.created_at, "%H:%i %d %b %Y") as created_at'))
+        ->select('feeds.id', 'feeds.post_id', 'feeds.publisher', 'feeds.status', 'feeds.gambar', 'users.id as user_id', 'users.name', DB::raw('DATE_FORMAT(feeds.created_at, "%H:%i %d %b %Y") as created_at'))
         ->join('users', 'feeds.user_id', '=', 'users.id')
         ->orderBy('feeds.created_at', 'desc')
         ->where('feeds.user_id', $request->user_id)
@@ -98,7 +98,7 @@ class FeedController extends Controller
         }
 
         $data = DB::table('feeds')
-        ->select('feeds.id', 'feeds.status', 'feeds.gambar', 'users.id as user_id', 'users.name', DB::raw('DATE_FORMAT(feeds.created_at, "%H:%i %d %b %Y") as created_at'))
+        ->select('feeds.id', 'feeds.post_id', 'feeds.publisher', 'feeds.status', 'feeds.gambar', 'users.id as user_id', 'users.name', DB::raw('DATE_FORMAT(feeds.created_at, "%H:%i %d %b %Y") as created_at'))
         ->join('users', 'feeds.user_id', '=', 'users.id')
         ->orderBy('feeds.created_at', 'desc')
         ->where('feeds.id', $request->feed_id)
@@ -139,7 +139,8 @@ class FeedController extends Controller
         $data = new Feed;
         $data->status = $request->status;
         $data->user_id = $request->user_id;
-
+        $data->post_id = $request->post_id;
+        $data->publisher = $request->publisher;
         $gambar = $request->file('gambar');
         if ($gambar) {
             $gambar_path = $gambar->store('gambar', 'public');

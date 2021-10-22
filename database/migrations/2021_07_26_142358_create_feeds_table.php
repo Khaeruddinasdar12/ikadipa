@@ -17,6 +17,8 @@ class CreateFeedsTable extends Migration
             $table->id();
             $table->text('status');
             $table->string('gambar')->nullable();
+            $table->string('publisher')->nullable();
+            $table->string('post_id')->nullable();
             $table->bigInteger('user_id')->unsigned();
             $table->timestamps();
 
