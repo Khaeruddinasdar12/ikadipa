@@ -53,4 +53,11 @@ Route::post('/wirausaha-profile', 'Api\WirausahaController@wirausaha'); // per l
 Route::post('/edit-wirausaha', 'Api\WirausahaController@update'); // edit wirausaha
 Route::post('/delete-wirausaha', 'Api\WirausahaController@delete'); // delete wirausaha
 
+// API NOTIFICATIONS
+Route::get('/notification', 'Api\NotificationController@index'); // get notification
+
+// Token Firebase
+Route::post('/send-token', 'Api\FcmtokenController@store'); // post token
+Route::post('/delete-token', 'Api\FcmtokenController@delete'); // post token
+
 
