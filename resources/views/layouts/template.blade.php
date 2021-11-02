@@ -230,7 +230,7 @@
           </li>
 
           <li class="nav-item">
-            <a href="" class="nav-link {{ request()->is('admin/manage-pengecer') ? 'active' : '' }}">
+            <a href="{{route('manageadmin.index')}}" class="nav-link {{ request()->is('admin/manage-admin') ? 'active' : '' }}">
               <i class="nav-icon fas fa-user-cog"></i>
               <p>
                 Manage Admin

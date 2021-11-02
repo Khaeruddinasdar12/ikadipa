@@ -62,6 +62,13 @@ Route::prefix('admin')->group(function() {
 	});
 	// END MANAGE ALUMNI
 
+	// ADMIN
+	Route::get('/manage-admin', 'Admin\ManageAdminController@index')->name('manageadmin.index');
+	Route::post('/manage-admin', 'Admin\ManageAdminController@store')->name('manageadmin.store');
+	Route::delete('/delete-admin/{id}', 'Admin\ManageAdminController@delete')->name('manageadmin.delete');
+	Route::get('/table-admin', 'Admin\ManageAdminController@tableAdmin')->name('table.manageadmin');
+	// END ADMIN
+
 	// WIRAUSAHA
 	Route::prefix('wirausaha')->group(function() {
 		Route::get('/', 'Admin\WirausahaController@index')->name('wirausaha.index');
