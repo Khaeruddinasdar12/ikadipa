@@ -44,46 +44,106 @@ List Alumni
 </section>
 <!-- /.content -->
 
-
-<!-- Modal Detail Alumni -->
-<div class="modal fade bd-example-modal" id="modal-detail-alumni" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<!-- Modal Edit Password -->
+<div class="modal fade bd-example-modal" id="modal-edit-password" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
+		<form method="post" id="edit-password">
+			@csrf
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title"><i class="fa fa-info"></i> Detail Alumni </h5>
+					<h5 class="modal-title">Ubah Password </h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-
 				<div class="modal-body">
-					<p><strong>STB : </strong> </p>
-					<p><strong>Nama : </strong> </p>
-					<p><strong>Email : </strong> </p>
-					<p><strong>No HP : </strong> </p>
-					<p><strong>Jurusan : </strong> </p>
-					<p><strong>Alamat : </strong> </p>
-					<p><strong>Pekerjaan : </strong> </p>
-					<p><strong>Jabatan : </strong> </p>
-					<p><strong>Alamat Pekerjaan : </strong> </p>
-					<p><strong>Nama : </strong> </p>
-
+					<table>
+						<tr>
+							<td><strong>Nama </strong></td>
+							<td> : </td>
+							<td id="nama-alumni"></td>
+						</tr>
+						<tr>
+							<td><strong>Angkatan </strong></td>
+							<td> : </td>
+							<td id="angkatan"></td>
+						</tr>
+						<tr>
+							<td><strong>Jurusan </strong></td>
+							<td> : </td>
+							<td id="jurusan"></td>
+						</tr>
+					</table>
+					
+					<hr>
+					<input type="hidden" name="hidden_id" id="edit-password-id">
+					<div class="form-group">
+						<label>Masukkan Password</label>
+						<input type="password" class="form-control" name="password">
+					</div>
+					<div class="form-group">
+						<label>Masukkan Konfirmasi Password</label>
+						<input type="password" class="form-control" name="password_confirmation">
+					</div>
 				</div>
-
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
 					<button type="submit" class="btn btn-primary btn-sm">Edit</button>
 				</div>
 			</div>
+		</form>
 	</div>
 </div>
-<!-- End Modal Detail Alumni Kategori -->
+<!-- End Modal Edit Password -->
 @endsection
 
 @section('js')
 <script type="text/javascript" src="{{asset('datatables.min.js')}}"></script>
 <script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
 <script type="text/javascript">
+	$('#modal-edit-password').on('show.bs.modal', function (event) {
+		var button = $(event.relatedTarget) 
+		var id = button.data('id') 
+		var nama = button.data('nama') 
+		var jurusan = button.data('jurusan') 
+		var angkatan = button.data('angkatan') 
+		// var kode = button.data('kode') 
+
+		var modal = $(this)
+		modal.find('.modal-body #edit-password-id').val(id)
+		modal.find('.modal-body #nama-alumni').text(nama)
+		modal.find('.modal-body #jurusan').text(jurusan)
+		modal.find('.modal-body #angkatan').text(angkatan)
+		// modal.find('.modal-body #kode-jurusan').val(kode)
+	})
+
+	$('#edit-password').submit(function(e){ //edit password
+		e.preventDefault();
+		var request = new FormData(this);
+		var endpoint= '{{route("alumni.edit.password")}}';
+		$.ajax({
+			url: endpoint,
+			method: "POST",
+			data: request,
+			contentType: false,
+			cache: false,
+			processData: false,
+            // dataType: "json",
+            success:function(data){
+            	$('#edit-password')[0].reset();
+            	$('#modal-edit-password').modal('hide');
+            	berhasil(data.status, data.pesan);
+            },
+            error: function(xhr, status, error){
+            	var error = xhr.responseJSON; 
+            	if ($.isEmptyObject(error) == false) {
+            		$.each(error.errors, function(key, value) {
+            			gagal(key, value);
+            		});
+            	}
+            } 
+        }); 
+	});
 
 		function hapus_data() { // menghapus jurusan
 			$(document).on('click', '#del_id', function(){
@@ -137,17 +197,17 @@ List Alumni
 				"ajax": {
                 "url":  '{{route("table.alumni")}}', // URL file untuk proses select datanya
                 "type": "GET"
-              },
-              "columns": [
-              { data: 'DT_RowIndex', name:'DT_RowIndex'},
-              { "data": "stb" },
-              { "data": "name" },
-              { "data": "email" },
-              { "data": "nohp" },
-              { "data": "jurusan.nama" },
-              { "data": "action" },
-              ]
-            });
+            },
+            "columns": [
+            { data: 'DT_RowIndex', name:'DT_RowIndex'},
+            { "data": "stb" },
+            { "data": "name" },
+            { "data": "email" },
+            { "data": "nohp" },
+            { "data": "jurusan.nama" },
+            { "data": "action" },
+            ]
+        });
 		});
 
 		function berhasil(status, pesan) {

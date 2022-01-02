@@ -131,6 +131,29 @@ class ManageAlumniController extends Controller
         ]);
     }
 
+    public function editPassword(Request $request)
+    {
+        $validasi = $this->validate($request, [
+                'password'  => 'required|string|min:8|confirmed',
+            ]);
+
+        $data = User::find($request->hidden_id);
+        if($data == '') {
+            return $arrayName = array(
+                'status' => 'error',
+                'pesan' => 'Data Alumni Tidak Ditemukan'
+            );
+        }
+
+        $data->password = bcrypt($request->password);
+        $data->save();
+
+        return $arrayName = array(
+            'status' => 'success',
+            'pesan' => 'Berhasil Mengubah Password '.$data->name
+        );
+    }
+
     public function tableAlumni() // api table users (alumni) untuk datatable
     {
         $data = User::where('is_active', '1')
@@ -145,6 +168,17 @@ class ManageAlumniController extends Controller
             title='detail alumni'
             >
             <i class='fa fa-eye'></i>
+            </a>
+
+            <a href='' class='btn btn-success btn-xs'
+            data-toggle='modal' 
+            data-target='#modal-edit-password'
+            title='edit password'
+            data-id='".$data->id."'
+            data-nama='".$data->name."'
+            data-angkatan='".$data->angkatan."'
+            data-jurusan='".$data->jurusan->nama."'>
+            <i class='fa fa-edit'></i>
             </a>
 
             <button class='btn btn-danger btn-xs'

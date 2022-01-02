@@ -54,8 +54,8 @@ Route::prefix('admin')->group(function() {
 		Route::put('konfirmasi/{id}', 'Admin\ManageAlumniController@konfirmasi')->name('alumni.konfirmasi');
 		Route::put('tolak/{id}', 'Admin\ManageAlumniController@tolak')->name('alumni.tolak');
 		
-
-		//table api alumni
+		Route::post('edit-password', 'Admin\ManageAlumniController@editPassword')->name('alumni.edit.password');
+		//edit password alumni
 		Route::get('/table-alumni', 'Admin\ManageAlumniController@tableAlumni')->name('table.alumni');
 		Route::get('/table-alumni-mendaftar', 'Admin\ManageAlumniController@tableMendaftar')->name('table.alumni.mendaftar');
 		Route::get('/table-alumni-ditolak', 'Admin\ManageAlumniController@tableDitolak')->name('table.alumni.ditolak');
